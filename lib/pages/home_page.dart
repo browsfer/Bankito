@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final Color _inactiveContainerColor = Colors.black54;
+  final Color _inactiveContainerColor = Color.fromRGBO(17, 17, 17, 1);
   final Color _activeContainerColor = Colors.lightGreen;
   bool _addMoneyContainerSelected = false;
   bool _transactionsContainerSelected = false;

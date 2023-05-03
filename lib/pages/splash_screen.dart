@@ -1,8 +1,14 @@
+import 'package:bankito/widgets/intro_slider.dart';
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +27,7 @@ class SplashScreen extends StatelessWidget {
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.85,
             //Slides
-            child: Center(child: const Text('ss')),
+            child: MyIntroSlider(),
           ),
           // User authentication section
           Expanded(
@@ -31,8 +37,8 @@ class SplashScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStatePropertyAll(Colors.lightGreen),
+                    elevation: MaterialStatePropertyAll(0),
+                    backgroundColor: MaterialStatePropertyAll(Colors.grey[200]),
                     fixedSize: MaterialStatePropertyAll(Size(170, 70)),
                     shape: MaterialStatePropertyAll(
                       RoundedRectangleBorder(
@@ -40,7 +46,10 @@ class SplashScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: const Text('Log In'),
+                  child: const Text(
+                    'Log In',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {},
@@ -54,7 +63,10 @@ class SplashScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: const Text('Log In'),
+                  child: const Text(
+                    'Sign Up',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ],
             ),
