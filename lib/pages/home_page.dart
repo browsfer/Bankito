@@ -1,6 +1,8 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:bankito/bottom_navigation/bottom_nav_bar.dart';
+import 'package:bankito/widgets/dropdown_button.dart';
+import 'package:bankito/widgets/transactions_list.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Container(
             decoration: const BoxDecoration(
-              color: Colors.black87,
+              color: Color.fromRGBO(17, 17, 17, 1),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(25),
                 bottomRight: Radius.circular(25),
@@ -80,26 +82,7 @@ class _HomePageState extends State<HomePage> {
                     const Spacer(),
 
                     // Menu
-                    DropdownButton(
-                      style: const TextStyle(fontSize: 14),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      iconSize: 30,
-                      isDense: true,
-                      elevation: 0,
-                      dropdownColor: Colors.lightGreen.withOpacity(0.25),
-                      borderRadius: BorderRadius.circular(25),
-                      items: const [
-                        DropdownMenuItem(
-                          value: '1',
-                          child: Text('Option 1'),
-                        ),
-                        DropdownMenuItem(
-                          child: Text('Option 2'),
-                          value: '2',
-                        )
-                      ],
-                      onChanged: (_) {},
-                    )
+                    MyDropDownButton(),
                   ],
                 ),
                 const Divider(color: Colors.grey),
@@ -193,7 +176,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 15),
 
-          // Transactions list
+          // Transactions section
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: Row(
@@ -219,22 +202,8 @@ class _HomePageState extends State<HomePage> {
                   )
                 ]),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return const ListTile(
-                  trailing: Text('-\$455'),
-                  leading: Icon(
-                    Icons.money_off,
-                    color: Colors.grey,
-                  ),
-                  title: Text('Groceries'),
-                  subtitle: Text('29.04.2022'),
-                );
-              },
-            ),
-          ),
+          //List of transactions
+          TransactionList(),
         ],
       ),
     );
