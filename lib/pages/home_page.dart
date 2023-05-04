@@ -1,6 +1,5 @@
 // ignore_for_file: sort_child_properties_last
 
-import 'package:bankito/bottom_navigation/bottom_nav_bar.dart';
 import 'package:bankito/theme/colors.dart';
 import 'package:bankito/widgets/dropdown_button.dart';
 import 'package:bankito/widgets/transactions_list.dart';
@@ -40,179 +39,174 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const MyBottomNavBar(),
-      backgroundColor: Colors.grey[200],
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: CustomColors.mainColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(25),
-                bottomRight: Radius.circular(25),
-              ),
-            ),
-            height: MediaQuery.of(context).size.height * 0.50,
-            //Upper part
-            child: Padding(
-              padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    // User profile picture
-                    const CircleAvatar(
-                      backgroundImage: AssetImage(
-                        'assets/images/profile_avatar.png',
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    // User name and account info
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text(
-                          'Dominik',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Text(
-                          'Personal account',
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-
-                    // Menu
-                    MyDropDownButton(),
-                  ],
-                ),
-                const Divider(color: Colors.grey),
-                const SizedBox(height: 10),
-                // Balance + two big buttons
-                Row(
-                  children: const [
-                    Text(
-                      'Balance',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    Spacer(),
-                  ],
-                ),
-                const SizedBox(height: 5),
-                Row(children: const [
-                  Text(
-                    '29,999 USD',
-                    style: TextStyle(color: Colors.white, fontSize: 35),
-                  ),
-                  Spacer(),
-                ]),
-                const SizedBox(height: 15),
-                Flexible(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          onTap: selectAddMoney,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: _addMoneyContainerSelected
-                                  ? _activeContainerColor
-                                  : _inactiveContainerColor,
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            height: 150,
-                            width: 150,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  Icons.attach_money,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  'Add money',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 15),
-                        GestureDetector(
-                          onTap: selectTransactions,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: _transactionsContainerSelected
-                                  ? _activeContainerColor
-                                  : _inactiveContainerColor,
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            height: 150,
-                            width: 150,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  Icons.money_outlined,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  'Transfer',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ]),
-                ),
-              ]),
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            color: CustomColors.mainColor,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(25),
+              bottomRight: Radius.circular(25),
             ),
           ),
-          const SizedBox(height: 15),
-
-          // Transactions section
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          height: MediaQuery.of(context).size.height * 0.50,
+          //Upper part
+          child: Padding(
+            padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Transactions',
+                  // User profile picture
+                  const CircleAvatar(
+                    backgroundImage: AssetImage(
+                      'assets/images/profile_avatar.png',
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  // User name and account info
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Text(
+                        'Dominik',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        'Personal account',
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+
+                  // Menu
+                  MyDropDownButton(),
+                ],
+              ),
+              const Divider(color: Colors.grey),
+              const SizedBox(height: 10),
+              // Balance + two big buttons
+              Row(
+                children: const [
+                  Text(
+                    'Balance',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
+                      color: Colors.grey,
+                      fontSize: 16,
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  TextButton(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.black),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'Show all',
-                    ),
-                  )
-                ]),
+                  Spacer(),
+                ],
+              ),
+              const SizedBox(height: 5),
+              Row(children: const [
+                Text(
+                  '29,999 USD',
+                  style: TextStyle(color: Colors.white, fontSize: 35),
+                ),
+                Spacer(),
+              ]),
+              const SizedBox(height: 15),
+              Flexible(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                        onTap: selectAddMoney,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _addMoneyContainerSelected
+                                ? _activeContainerColor
+                                : _inactiveContainerColor,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          height: 150,
+                          width: 150,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.attach_money,
+                                color: Colors.white,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                'Add money',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: selectTransactions,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _transactionsContainerSelected
+                                ? _activeContainerColor
+                                : _inactiveContainerColor,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          height: 150,
+                          width: 150,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.money_outlined,
+                                color: Colors.white,
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                'Transfer',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ]),
+              ),
+            ]),
           ),
-          //List of transactions
-          TransactionList(),
-        ],
-      ),
+        ),
+        const SizedBox(height: 15),
+
+        // Transactions section
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            const Text(
+              'Transactions',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.left,
+            ),
+            TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all(Colors.black),
+              ),
+              onPressed: () {},
+              child: const Text(
+                'Show all',
+              ),
+            )
+          ]),
+        ),
+        //List of transactions
+        TransactionList(),
+      ],
     );
   }
 }

@@ -1,8 +1,9 @@
-import 'package:bankito/pages/splash_screen.dart';
+import 'package:bankito/navigation/nav_tabs_provider.dart';
+import 'package:bankito/navigation/tabs_screen.dart';
+import 'package:bankito/onboarding/splash_screen.dart';
 import 'package:bankito/pages/transaction_history_page.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
 import 'pages/home_page.dart';
 
 void main() {
@@ -15,17 +16,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Switzer',
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => TabsProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Switzer',
+        ),
+        debugShowCheckedModeBanner: false,
+        home: TabsScreen(),
+        routes: {
+          HomePage.routeName: (context) => HomePage(),
+        },
       ),
-      debugShowCheckedModeBanner: false,
-      home: TransactionHistory(),
-      routes: {
-        HomePage.routeName: (context) => HomePage(),
-      },
     );
   }
 }
