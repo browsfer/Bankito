@@ -1,4 +1,4 @@
-import 'package:bankito/widgets/intro_slider.dart';
+import 'package:bankito/widgets/my_intro_slider.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.grey[200],
       body: Column(
         children: [
-          //Logo
+          //Slides
           Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -25,9 +25,9 @@ class _SplashScreenState extends State<SplashScreen> {
               color: Color.fromRGBO(17, 17, 17, 1),
             ),
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.85,
+            height: MediaQuery.of(context).size.height * 0.80,
             //Slides
-            child: MyIntroSlider(),
+            child: const MyIntroSlider(),
           ),
           // User authentication section
           Expanded(
@@ -37,9 +37,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                    elevation: MaterialStatePropertyAll(0),
+                    splashFactory: InkRipple.splashFactory,
+                    elevation: const MaterialStatePropertyAll(0),
                     backgroundColor: MaterialStatePropertyAll(Colors.grey[200]),
-                    fixedSize: MaterialStatePropertyAll(Size(170, 70)),
+                    fixedSize: const MaterialStatePropertyAll(Size(170, 70)),
                     shape: MaterialStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(35),
@@ -47,16 +48,42 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   ),
                   child: const Text(
-                    'Log In',
+                    'Sign In',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
+                // Loggin in or creating user
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25),
+                          ),
+                        ),
+                        height: 500,
+                        child: Center(
+                            child: Text(
+                          'Creating or loggin in',
+                          style: TextStyle(fontSize: 40),
+                        )),
+                      ),
+                    );
+                  },
                   style: ButtonStyle(
+                    splashFactory: InkRipple.splashFactory,
                     backgroundColor:
-                        MaterialStatePropertyAll(Colors.lightGreen),
-                    fixedSize: MaterialStatePropertyAll(Size(170, 70)),
+                        const MaterialStatePropertyAll(Colors.lightGreen),
+                    fixedSize: const MaterialStatePropertyAll(Size(170, 70)),
                     shape: MaterialStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(35),

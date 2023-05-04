@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       theme: ThemeData(
-        textTheme: GoogleFonts.montserratTextTheme(textTheme).copyWith(
-          bodyMedium: GoogleFonts.roboto(textStyle: textTheme.bodyMedium),
-        ),
+        // textTheme: GoogleFonts.cormorantUprightTextTheme(textTheme).copyWith(
+        //   bodyMedium: GoogleFonts.cormorant(textStyle: textTheme.bodyMedium),
+        fontFamily: 'Switzer',
       ),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),

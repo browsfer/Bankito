@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: const MyBottomNavBar(),
       backgroundColor: Colors.grey[200],
       body: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           Container(
             decoration: const BoxDecoration(
