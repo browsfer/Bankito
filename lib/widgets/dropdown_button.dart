@@ -19,7 +19,7 @@ class MyDropDownButton extends StatelessWidget {
         items: const [
           DropdownMenuItem(
             value: '1',
-            child: Text('Option 1'),
+            child: Text('Log out'),
           ),
           DropdownMenuItem(
             child: Text('Option 2'),

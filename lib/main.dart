@@ -1,4 +1,5 @@
 import 'package:bankito/pages/splash_screen.dart';
+import 'package:bankito/pages/transaction_history_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,12 +19,13 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       theme: ThemeData(
-        // textTheme: GoogleFonts.cormorantUprightTextTheme(textTheme).copyWith(
-        //   bodyMedium: GoogleFonts.cormorant(textStyle: textTheme.bodyMedium),
         fontFamily: 'Switzer',
       ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: TransactionHistory(),
+      routes: {
+        HomePage.routeName: (context) => HomePage(),
+      },
     );
   }
 }

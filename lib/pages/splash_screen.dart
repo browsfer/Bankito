@@ -1,4 +1,6 @@
-import 'package:bankito/widgets/my_intro_slider.dart';
+import 'package:bankito/pages/home_page.dart';
+import 'package:bankito/onboarding/login_bottomsheet.dart';
+import 'package:bankito/onboarding/my_intro_slider.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -9,6 +11,20 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  void userAuth() {
+    showModalBottomSheet(
+      backgroundColor: const Color.fromRGBO(17, 17, 17, 0.95),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
+      context: context,
+      builder: (context) => const LoginBottomsheet(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: userAuth,
                   style: ButtonStyle(
                     splashFactory: InkRipple.splashFactory,
                     elevation: const MaterialStatePropertyAll(0),
@@ -54,31 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 // Loggin in or creating user
                 ElevatedButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25),
-                        ),
-                      ),
-                      context: context,
-                      builder: (context) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25),
-                          ),
-                        ),
-                        height: 500,
-                        child: Center(
-                            child: Text(
-                          'Creating or loggin in',
-                          style: TextStyle(fontSize: 40),
-                        )),
-                      ),
-                    );
-                  },
+                  onPressed: userAuth,
                   style: ButtonStyle(
                     splashFactory: InkRipple.splashFactory,
                     backgroundColor:

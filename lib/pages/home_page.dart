@@ -1,6 +1,7 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:bankito/bottom_navigation/bottom_nav_bar.dart';
+import 'package:bankito/theme/colors.dart';
 import 'package:bankito/widgets/dropdown_button.dart';
 import 'package:bankito/widgets/transactions_list.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +9,20 @@ import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  static const routeName = '/home-page';
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final Color _inactiveContainerColor = Color.fromRGBO(17, 17, 17, 1);
-  final Color _activeContainerColor = Colors.lightGreen;
+  final Color _inactiveContainerColor = CustomColors.mainColor;
+  final Color _activeContainerColor = CustomColors.secondColor;
   bool _addMoneyContainerSelected = false;
   bool _transactionsContainerSelected = false;
 
   void selectAddMoney() {
+    //Navigating to page later
     setState(() {
       _addMoneyContainerSelected = true;
       _transactionsContainerSelected = false;
@@ -26,6 +30,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void selectTransactions() {
+    //Navigating to page later
+
     setState(() {
       _addMoneyContainerSelected = false;
       _transactionsContainerSelected = true;
@@ -42,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Container(
             decoration: const BoxDecoration(
-              color: Color.fromRGBO(17, 17, 17, 1),
+              color: CustomColors.mainColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(25),
                 bottomRight: Radius.circular(25),
@@ -163,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  'Transactions',
+                                  'Transfer',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ],
