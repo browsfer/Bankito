@@ -1,10 +1,16 @@
+// ignore: unused_import
+import 'dart:ffi';
+
+import 'package:bankito/providers/transactions_provider.dart';
 import 'package:bankito/theme/colors.dart';
-import 'package:bankito/widgets/transactions_list.dart';
 import 'package:bankito/widgets/transactions_page_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TransactionHistoryPage extends StatelessWidget {
   const TransactionHistoryPage({super.key});
+
+  static const routeName = '/transactions-history-page';
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +21,23 @@ class TransactionHistoryPage extends StatelessWidget {
           decoration: const BoxDecoration(
             color: CustomColors.mainColor,
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(25),
-              bottomRight: Radius.circular(25),
+              bottomLeft: Radius.circular(24),
+              bottomRight: Radius.circular(24),
             ),
           ),
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 0.25,
-          child: Center(
-            child: Column(
-              children: [
-                const SizedBox(height: 80),
-                const Text(
-                  'Transaction History',
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                ),
-                const SizedBox(height: 30),
-                //Buttons
-                Row(
+          height: MediaQuery.of(context).size.height * 0.20,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Transaction History',
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+              const SizedBox(height: 25),
+              //Buttons
+              Flexible(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     CircleAvatar(
@@ -45,17 +51,32 @@ class TransactionHistoryPage extends StatelessWidget {
                         onPressed: () {},
                       ),
                     ),
-                    const TransactionPageButton(title: 'Period'),
-                    const TransactionPageButton(title: 'Price'),
-                    const TransactionPageButton(title: 'Product'),
-                    const TransactionPageButton(title: 'Type'),
+                    const TransactionsPageButton(title: 'Period'),
+                    const TransactionsPageButton(title: 'Price'),
+                    const TransactionsPageButton(title: 'Product'),
+                    const TransactionsPageButton(title: 'Type'),
                   ],
                 ),
-              ],
+              ),
+            ],
+          ),
+        ),
+        // List of transactions
+        Flexible(
+          child: Consumer<TransactionsProvider>(
+            builder: (context, value, child) => ListView.builder(
+              itemCount: value.transactionList.length,
+              itemBuilder: (context, index) => ListTile(
+                leading: const Icon(
+                  Icons.monetization_on,
+                ),
+                title: Text(value.transactionList[index].recipent),
+                subtitle: Text('${value.transactionList[index].date}'),
+                trailing: Text('\$${value.transactionList[index].amount}'),
+              ),
             ),
           ),
         ),
-        TransactionList(),
       ],
     );
   }

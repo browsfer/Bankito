@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class TransactionPageButton extends StatefulWidget {
+class TransactionsPageButton extends StatefulWidget {
   final String title;
 
-  const TransactionPageButton({super.key, required this.title});
+  const TransactionsPageButton({super.key, required this.title});
 
   @override
-  State<TransactionPageButton> createState() => _TransactionPageButtonState();
+  State<TransactionsPageButton> createState() => _TransactionPageButtonState();
 }
 
-class _TransactionPageButtonState extends State<TransactionPageButton> {
+class _TransactionPageButtonState extends State<TransactionsPageButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

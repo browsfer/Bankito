@@ -1,7 +1,9 @@
+import 'package:bankito/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'nav_tabs_provider.dart';
+import '../providers/tabs_provider.dart';
 
 class TabsScreen extends StatelessWidget {
   const TabsScreen({super.key});
@@ -10,6 +12,13 @@ class TabsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final navBar = Provider.of<TabsProvider>(context);
     return Scaffold(
+      appBar: AppBar(
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: CustomColors.mainColor,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.light,
+          ),
+          toolbarHeight: 0),
       body: navBar.navBarItems[navBar.selectedIndex].screen,
       bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,

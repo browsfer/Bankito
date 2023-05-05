@@ -1,7 +1,8 @@
-import 'package:bankito/navigation/nav_tabs_provider.dart';
+import 'package:bankito/providers/tabs_provider.dart';
 import 'package:bankito/navigation/tabs_screen.dart';
 import 'package:bankito/onboarding/splash_screen.dart';
 import 'package:bankito/pages/transaction_history_page.dart';
+import 'package:bankito/providers/transactions_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'pages/home_page.dart';
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (ctx) => TransactionsProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (ctx) => TabsProvider(),
         ),
       ],
@@ -30,6 +34,8 @@ class MyApp extends StatelessWidget {
         home: TabsScreen(),
         routes: {
           HomePage.routeName: (context) => HomePage(),
+          TransactionHistoryPage.routeName: (context) =>
+              TransactionHistoryPage(),
         },
       ),
     );

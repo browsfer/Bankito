@@ -1,9 +1,11 @@
 // ignore_for_file: sort_child_properties_last
 
+import 'package:bankito/providers/tabs_provider.dart';
+import 'package:bankito/providers/transactions_provider.dart';
 import 'package:bankito/theme/colors.dart';
 import 'package:bankito/widgets/dropdown_button.dart';
-import 'package:bankito/widgets/transactions_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,26 +17,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final Color _inactiveContainerColor = CustomColors.mainColor;
-  final Color _activeContainerColor = CustomColors.secondColor;
-  bool _addMoneyContainerSelected = false;
-  bool _transactionsContainerSelected = false;
-
   void selectAddMoney() {
     //Navigating to page later
-    setState(() {
-      _addMoneyContainerSelected = true;
-      _transactionsContainerSelected = false;
-    });
   }
 
-  void selectTransactions() {
+  void selectTransfer() {
     //Navigating to page later
-
-    setState(() {
-      _addMoneyContainerSelected = false;
-      _transactionsContainerSelected = true;
-    });
   }
 
   @override
@@ -46,54 +34,54 @@ class _HomePageState extends State<HomePage> {
           decoration: const BoxDecoration(
             color: CustomColors.mainColor,
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(25),
-              bottomRight: Radius.circular(25),
+              bottomLeft: Radius.circular(24),
+              bottomRight: Radius.circular(24),
             ),
           ),
-          height: MediaQuery.of(context).size.height * 0.50,
+          height: MediaQuery.of(context).size.height * 0.45,
           //Upper part
           child: Padding(
-            padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
-            child: Column(children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // User profile picture
-                  const CircleAvatar(
-                    backgroundImage: AssetImage(
-                      'assets/images/profile_avatar.png',
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // User profile picture
+                    const CircleAvatar(
+                      backgroundImage: AssetImage(
+                        'assets/images/profile_avatar.png',
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  // User name and account info
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Text(
-                        'Dominik',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+                    const SizedBox(width: 10),
+                    // User name and account info
+                    Column(
+                      children: const [
+                        Text(
+                          'Dominik',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Personal account',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
+                        Text(
+                          'Personal account',
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
 
-                  // Menu
-                  MyDropDownButton(),
-                ],
-              ),
-              const Divider(color: Colors.grey),
-              const SizedBox(height: 10),
-              // Balance + two big buttons
-              Row(
-                children: const [
-                  Text(
+                    // Menu
+                    const MyDropDownButton(),
+                  ],
+                ),
+                const Divider(color: Colors.grey),
+                const SizedBox(height: 10),
+                // Balance + two big buttons
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
                     'Balance',
                     style: TextStyle(
                       color: Colors.grey,
@@ -101,83 +89,75 @@ class _HomePageState extends State<HomePage> {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  Spacer(),
-                ],
-              ),
-              const SizedBox(height: 5),
-              Row(children: const [
-                Text(
-                  '29,999 USD',
-                  style: TextStyle(color: Colors.white, fontSize: 35),
                 ),
-                Spacer(),
-              ]),
-              const SizedBox(height: 15),
-              Flexible(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: selectAddMoney,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: _addMoneyContainerSelected
-                                ? _activeContainerColor
-                                : _inactiveContainerColor,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          height: 150,
-                          width: 150,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(
-                                Icons.attach_money,
-                                color: Colors.white,
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Add money',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
+                const SizedBox(height: 5),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '29,999 USD',
+                    style: TextStyle(color: Colors.white, fontSize: 35),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: selectAddMoney,
+                      child: Container(
+                        padding: const EdgeInsets.all(48),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(34, 34, 34, 1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.attach_money,
+                              color: Colors.white,
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Add money',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(width: 15),
-                      GestureDetector(
-                        onTap: selectTransactions,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: _transactionsContainerSelected
-                                ? _activeContainerColor
-                                : _inactiveContainerColor,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          height: 150,
-                          width: 150,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(
-                                Icons.money_outlined,
-                                color: Colors.white,
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Transfer',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
+                    ),
+                    const SizedBox(width: 15),
+                    InkWell(
+                      onTap: selectTransfer,
+                      child: Container(
+                        padding: const EdgeInsets.all(48),
+                        decoration: BoxDecoration(
+                          color: CustomColors.secondColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.money_outlined,
+                              color: Colors.white,
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Transfer',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ),
                       ),
-                    ]),
-              ),
-            ]),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 5),
 
         // Transactions section
         Padding(
@@ -193,19 +173,35 @@ class _HomePageState extends State<HomePage> {
               ),
               textAlign: TextAlign.left,
             ),
-            TextButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.black),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Show all',
+            Consumer<TabsProvider>(
+              builder: (context, value, child) => TextButton(
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all(Colors.black),
+                ),
+                onPressed: () => value.changeIndex = 1,
+                child: const Text(
+                  'Show all',
+                ),
               ),
             )
           ]),
         ),
         //List of transactions
-        TransactionList(),
+        Flexible(
+          child: Consumer<TransactionsProvider>(
+            builder: (context, value, child) => ListView.builder(
+              itemCount: value.transactionList.length,
+              itemBuilder: (context, index) => ListTile(
+                leading: const Icon(
+                  Icons.monetization_on,
+                ),
+                title: Text(value.transactionList[index].recipent),
+                subtitle: Text('${value.transactionList[index].date}'),
+                trailing: Text('\$${value.transactionList[index].amount}'),
+              ),
+            ),
+          ),
+        )
       ],
     );
   }
