@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:bankito/providers/transactions_provider.dart';
 import 'package:bankito/theme/colors.dart';
+import 'package:bankito/widgets/single_transaction.dart';
 import 'package:bankito/widgets/transactions_page_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,13 +67,11 @@ class TransactionHistoryPage extends StatelessWidget {
           child: Consumer<TransactionsProvider>(
             builder: (context, value, child) => ListView.builder(
               itemCount: value.transactionList.length,
-              itemBuilder: (context, index) => ListTile(
-                leading: const Icon(
-                  Icons.monetization_on,
-                ),
-                title: Text(value.transactionList[index].recipent),
-                subtitle: Text('${value.transactionList[index].date}'),
-                trailing: Text('\$${value.transactionList[index].amount}'),
+              itemBuilder: (context, index) => SingleTransactionTile(
+                amount: value.transactionList[index].amount,
+                date: value.transactionList[index].date,
+                recipent: value.transactionList[index].recipent,
+                isIncome: value.transactionList[index].isIncome,
               ),
             ),
           ),

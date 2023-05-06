@@ -1,3 +1,4 @@
+import 'package:bankito/pages/cards_page.dart';
 import 'package:bankito/pages/home_page.dart';
 import 'package:bankito/pages/transaction_history_page.dart';
 import 'package:bankito/theme/colors.dart';
@@ -39,7 +40,7 @@ class TabsProvider with ChangeNotifier {
         color: CustomColors.secondColor,
       ),
       label: 'Cards',
-      screen: const HomePage(),
+      screen: const CardsPage(),
     ),
     NavbarItem(
       icon: const Icon(

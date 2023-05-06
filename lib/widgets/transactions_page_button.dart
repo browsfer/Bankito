@@ -12,7 +12,7 @@ class TransactionsPageButton extends StatefulWidget {
 class _TransactionPageButtonState extends State<TransactionsPageButton> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {},
       child: Container(
         padding: const EdgeInsets.all(11),

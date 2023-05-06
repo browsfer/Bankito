@@ -7,6 +7,8 @@ import 'package:bankito/widgets/dropdown_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/single_transaction.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -140,12 +142,12 @@ class _HomePageState extends State<HomePage> {
                           children: const [
                             Icon(
                               Icons.money_outlined,
-                              color: Colors.white,
+                              color: CustomColors.mainColor,
                             ),
                             SizedBox(height: 5),
                             Text(
                               'Transfer',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: CustomColors.mainColor),
                             ),
                           ],
                         ),
@@ -191,13 +193,11 @@ class _HomePageState extends State<HomePage> {
           child: Consumer<TransactionsProvider>(
             builder: (context, value, child) => ListView.builder(
               itemCount: value.transactionList.length,
-              itemBuilder: (context, index) => ListTile(
-                leading: const Icon(
-                  Icons.monetization_on,
-                ),
-                title: Text(value.transactionList[index].recipent),
-                subtitle: Text('${value.transactionList[index].date}'),
-                trailing: Text('\$${value.transactionList[index].amount}'),
+              itemBuilder: (context, index) => SingleTransactionTile(
+                amount: value.transactionList[index].amount,
+                date: value.transactionList[index].date,
+                recipent: value.transactionList[index].recipent,
+                isIncome: value.transactionList[index].isIncome,
               ),
             ),
           ),
