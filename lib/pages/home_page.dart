@@ -4,6 +4,7 @@ import 'package:bankito/providers/tabs_provider.dart';
 import 'package:bankito/providers/transactions_provider.dart';
 import 'package:bankito/theme/colors.dart';
 import 'package:bankito/widgets/dropdown_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +20,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void selectAddMoney() {
+  void selectAddMoney() async {
     //Navigating to page later
+    await FirebaseAuth.instance.signOut();
   }
 
   void selectTransfer() {
@@ -80,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const Divider(color: Colors.grey),
                 const SizedBox(height: 10),
-                // Balance + two big buttons
+                // Balance
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -101,6 +103,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 15),
+                //two big buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

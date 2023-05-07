@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TransactionsPageButton extends StatefulWidget {
+class TransactionsPageButton extends StatelessWidget {
   final String title;
+  final Function()? onTap;
 
-  const TransactionsPageButton({super.key, required this.title});
+  const TransactionsPageButton(
+      {super.key, required this.title, required this.onTap});
 
-  @override
-  State<TransactionsPageButton> createState() => _TransactionPageButtonState();
-}
-
-class _TransactionPageButtonState extends State<TransactionsPageButton> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
+    return GestureDetector(
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(11),
         decoration: BoxDecoration(
@@ -24,7 +21,7 @@ class _TransactionPageButtonState extends State<TransactionsPageButton> {
           borderRadius: BorderRadius.circular(50),
         ),
         child: Text(
-          widget.title,
+          title,
           style: const TextStyle(color: Colors.grey),
           textAlign: TextAlign.center,
         ),

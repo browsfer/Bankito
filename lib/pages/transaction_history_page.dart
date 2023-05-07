@@ -52,10 +52,22 @@ class TransactionHistoryPage extends StatelessWidget {
                         onPressed: () {},
                       ),
                     ),
-                    const TransactionsPageButton(title: 'Period'),
-                    const TransactionsPageButton(title: 'Price'),
-                    const TransactionsPageButton(title: 'Product'),
-                    const TransactionsPageButton(title: 'Type'),
+                    TransactionsPageButton(
+                      title: 'Period',
+                      onTap: () {},
+                    ),
+                    TransactionsPageButton(
+                      title: 'Price',
+                      onTap: () {},
+                    ),
+                    TransactionsPageButton(
+                      title: 'Product',
+                      onTap: () {},
+                    ),
+                    TransactionsPageButton(
+                      title: 'Type',
+                      onTap: () {},
+                    ),
                   ],
                 ),
               ),

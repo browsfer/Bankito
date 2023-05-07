@@ -39,6 +39,10 @@ dependencies:
   modal_bottom_sheet: ^2.1.2
   provider: ^6.0.5
   intl: ^0.18.1
+  firebase_auth: ^4.2.2
+  firebase_core: ^2.11.0
+  fluttertoast: ^8.2.1
+  cloud_firestore: ^4.6.0
 
 dev_dependencies:
   flutter_test:

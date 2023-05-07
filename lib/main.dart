@@ -3,11 +3,16 @@ import 'package:bankito/navigation/tabs_screen.dart';
 import 'package:bankito/onboarding/splash_screen.dart';
 import 'package:bankito/pages/transaction_history_page.dart';
 import 'package:bankito/providers/transactions_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'pages/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -31,7 +36,16 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Switzer',
         ),
         debugShowCheckedModeBanner: false,
-        home: TabsScreen(),
+        home: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return TabsScreen();
+            } else {
+              return SplashScreen();
+            }
+          },
+        ),
         routes: {
           HomePage.routeName: (context) => HomePage(),
           TransactionHistoryPage.routeName: (context) =>

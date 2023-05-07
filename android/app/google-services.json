@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "373529736164",
+    "project_id": "bankito-96ee5",
+    "storage_bucket": "bankito-96ee5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373529736164:android:c0ae5f5d653b7b74124df1",
+        "android_client_info": {
+          "package_name": "com.example.bankito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373529736164-qb7spb6l1db50oh2ehugu9d4j9h7pjcs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bankito",
+            "certificate_hash": "f549c4356564233fea2c70ec5be30f6f73cc9f05"
+          }
+        },
+        {
+          "client_id": "373529736164-c32rfs7qiahhi44942f3t6gp0bpa3lpr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATaXMgXGYj_IdSFg-WAqyt-ulqyG8oTi8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373529736164-c32rfs7qiahhi44942f3t6gp0bpa3lpr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
