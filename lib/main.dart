@@ -1,6 +1,6 @@
+import 'package:bankito/onboarding/onboarding_screen.dart';
 import 'package:bankito/providers/tabs_provider.dart';
 import 'package:bankito/navigation/tabs_screen.dart';
-import 'package:bankito/onboarding/splash_screen.dart';
 import 'package:bankito/pages/transaction_history_page.dart';
 import 'package:bankito/providers/transactions_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,16 +40,16 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return TabsScreen();
+              return const TabsScreen();
             } else {
-              return SplashScreen();
+              return const OnboardingScreen();
             }
           },
         ),
         routes: {
-          HomePage.routeName: (context) => HomePage(),
+          HomePage.routeName: (context) => const HomePage(),
           TransactionHistoryPage.routeName: (context) =>
-              TransactionHistoryPage(),
+              const TransactionHistoryPage(),
         },
       ),
     );
