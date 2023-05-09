@@ -3,8 +3,8 @@ import 'dart:ffi';
 
 import 'package:bankito/providers/transactions_provider.dart';
 import 'package:bankito/theme/colors.dart';
-import 'package:bankito/widgets/single_transaction.dart';
-import 'package:bankito/widgets/transactions_page_button.dart';
+import 'package:bankito/user_transactions_section/single_transaction_tile.dart';
+import 'package:bankito/user_transactions_section/transactions_page_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

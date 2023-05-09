@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "373529736164-qb7spb6l1db50oh2ehugu9d4j9h7pjcs.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.bankito",
-            "certificate_hash": "f549c4356564233fea2c70ec5be30f6f73cc9f05"
-          }
-        },
-        {
           "client_id": "373529736164-c32rfs7qiahhi44942f3t6gp0bpa3lpr.apps.googleusercontent.com",
           "client_type": 3
         }

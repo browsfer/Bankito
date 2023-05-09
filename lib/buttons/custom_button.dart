@@ -1,11 +1,11 @@
 import 'package:bankito/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class AuthButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final Function()? onTap;
   final String title;
   final bool isLime;
-  const AuthButton({
+  const CustomButton({
     super.key,
     required this.title,
     required this.onTap,

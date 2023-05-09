@@ -2,16 +2,16 @@ import 'package:bankito/authentication/auth_form.dart';
 import 'package:bankito/onboarding/my_intro_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../authentication/auth_button.dart';
+import '../buttons/custom_button.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   void userAuth(bool isSignIn) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -55,12 +55,12 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                AuthButton(
+                CustomButton(
                   title: 'Sign in',
                   onTap: () => userAuth(true),
                   isLime: false,
                 ),
-                AuthButton(
+                CustomButton(
                   title: 'Sign up',
                   onTap: () => userAuth(false),
                   isLime: true,

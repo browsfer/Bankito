@@ -12,6 +12,7 @@ class TabsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final navBar = Provider.of<TabsProvider>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
           systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: CustomColors.mainColor,

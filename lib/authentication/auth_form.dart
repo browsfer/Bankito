@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../theme/colors.dart';
-import 'auth_button.dart';
+import '../buttons/custom_button.dart';
 
 class AuthForm extends StatefulWidget {
   bool isSignIn;
@@ -16,11 +16,13 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
-  final _usernameController = TextEditingController();
+  final _firstNameController = TextEditingController();
 
   final _emailController = TextEditingController();
 
   final _passwordController = TextEditingController();
+
+  final _surnameController = TextEditingController();
 
   final _auth = FirebaseAuth.instance;
 
@@ -32,7 +34,7 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _firstNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -85,11 +87,12 @@ class _AuthFormState extends State<AuthForm> {
             email: _emailController.text.trim(),
             password: _passwordController.text.trim());
 
-        //Add username
-        if (_usernameController.text.isNotEmpty) {
+        //Add user data
+        if (_firstNameController.text.isNotEmpty) {
           await _firestore.collection('users').doc(authResult.user!.uid).set(
             {
-              'username': _usernameController.text.trim(),
+              'firstName': _firstNameController.text.trim(),
+              'surname': _surnameController.text.trim(),
             },
           );
         }
@@ -116,174 +119,209 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-            child: AlertDialog(
-              backgroundColor: Colors.transparent,
-              content:
-                  CircularProgressIndicator(color: CustomColors.secondColor),
+    if (isLoading) {
+      return const Center(
+        child: AlertDialog(
+          backgroundColor: Colors.transparent,
+          content: CircularProgressIndicator(color: CustomColors.secondColor),
+        ),
+      );
+    } else {
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 15,
+          right: 15,
+          top: 15,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: Image.asset(
+                'assets/images/bankito_logo.png',
+              ),
             ),
-          )
-        : Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-              left: 15,
-              right: 15,
-              top: 15,
+            const SizedBox(height: 20),
+            Text(
+              widget.isSignIn
+                  ? 'Welcome back, you have been missed!'
+                  : 'Create your account',
+              style: const TextStyle(
+                color: Colors.grey,
+              ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/bankito_logo.png',
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  widget.isSignIn
-                      ? 'Welcome back, you have been missed!'
-                      : 'Create your account',
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-                const SizedBox(height: 25),
+            const SizedBox(height: 15),
 
-                //Authentication form
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      if (!widget.isSignIn)
-                        TextFormField(
-                          style: const TextStyle(
-                            color: Colors.white70,
-                          ),
-                          controller: _usernameController,
-                          validator: (value) {
-                            if (value!.length < 3) {
-                              return 'Use at least 3 letters';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                            ),
-                            hintText: 'Username(optional)',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white38),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: CustomColors.secondColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      const SizedBox(height: 15),
+            //Authentication form
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  if (!widget.isSignIn)
 
-                      //User email
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter your e-mail address.';
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        style: const TextStyle(
-                          color: Colors.white70,
+                    //User first name
+                    TextFormField(
+                      style: const TextStyle(
+                        color: Colors.white70,
+                      ),
+                      controller: _firstNameController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please insert your name';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
                         ),
-                        controller: _emailController,
-                        decoration: const InputDecoration(
-                          hintStyle: TextStyle(
-                            color: Colors.grey,
-                          ),
-                          hintText: 'Email address',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white38),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: CustomColors.secondColor,
-                            ),
+                        hintText: 'First name',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white38),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: CustomColors.secondColor,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 15),
+                    ),
+                  const SizedBox(height: 15),
+                  if (!widget.isSignIn)
 
-                      //User password
-                      TextFormField(
-                        obscureText: true,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter password';
-                          } else if (value.length < 6) {
-                            return 'Password should be at least 6 characters long!';
-                          }
-                          return null;
-                        },
-                        style: const TextStyle(
-                          color: Colors.white70,
+                    //User surname
+                    TextFormField(
+                      style: const TextStyle(
+                        color: Colors.white70,
+                      ),
+                      controller: _surnameController,
+                      validator: (value) {
+                        if (value!.length < 3 || value.isEmpty) {
+                          return 'Please insert your surname';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
                         ),
-                        controller: _passwordController,
-                        decoration: const InputDecoration(
-                          hintStyle: TextStyle(
-                            color: Colors.grey,
-                          ),
-                          hintText: 'Password',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white38),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: CustomColors.secondColor,
-                            ),
+                        hintText: 'Surname',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white38),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: CustomColors.secondColor,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      //Confirm password
-                      if (!widget.isSignIn)
-                        TextFormField(
-                          obscureText: true,
-                          validator: (value) {
-                            if (value != _passwordController.text) {
-                              return 'Passwords dont match';
-                            }
-                          },
-                          style: const TextStyle(
-                            color: Colors.white70,
-                          ),
-                          decoration: const InputDecoration(
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                            ),
-                            hintText: 'Confirm password',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white38),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: CustomColors.secondColor,
-                              ),
-                            ),
-                          ),
-                        )
-                    ],
-                  ),
-                ),
+                    ),
+                  const SizedBox(height: 15),
 
-                //Submit button
-                const SizedBox(height: 15),
-                AuthButton(
-                  title: widget.isSignIn ? 'Sign In' : 'Sign Up',
-                  onTap: widget.isSignIn ? signInUser : createNewUser,
-                  isLime: true,
-                ),
-                const SizedBox(height: 15),
-              ],
+                  //User email
+                  TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter your e-mail address.';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                    ),
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                      ),
+                      hintText: 'Email address',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white38),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: CustomColors.secondColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+
+                  //User password
+                  TextFormField(
+                    obscureText: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter password';
+                      } else if (value.length < 6) {
+                        return 'Password should be at least 6 characters long!';
+                      }
+                      return null;
+                    },
+                    style: const TextStyle(
+                      color: Colors.white70,
+                    ),
+                    controller: _passwordController,
+                    decoration: const InputDecoration(
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                      ),
+                      hintText: 'Password',
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white38),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: CustomColors.secondColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  //Confirm password
+                  if (!widget.isSignIn)
+                    TextFormField(
+                      obscureText: true,
+                      validator: (value) {
+                        if (value != _passwordController.text) {
+                          return 'Passwords dont match';
+                        }
+                      },
+                      style: const TextStyle(
+                        color: Colors.white70,
+                      ),
+                      decoration: const InputDecoration(
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                        ),
+                        hintText: 'Confirm password',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white38),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: CustomColors.secondColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
-          );
+
+            //Submit button
+            const SizedBox(height: 15),
+            CustomButton(
+              title: widget.isSignIn ? 'Sign In' : 'Sign Up',
+              onTap: widget.isSignIn ? signInUser : createNewUser,
+              isLime: true,
+            ),
+            const SizedBox(height: 15),
+          ],
+        ),
+      );
+    }
   }
 }

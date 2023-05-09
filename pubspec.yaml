@@ -43,6 +43,8 @@ dependencies:
   firebase_core: ^2.11.0
   fluttertoast: ^8.2.1
   cloud_firestore: ^4.6.0
+  sqflite: ^2.2.8+2
+  path: ^1.8.2
 
 dev_dependencies:
   flutter_test:

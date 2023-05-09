@@ -1,12 +1,30 @@
 import 'package:bankito/theme/colors.dart';
-import 'package:bankito/widgets/user_card.dart';
+import 'package:bankito/user_card_section/add_card.dart';
+import 'package:bankito/user_card_section/user_card_widget.dart';
+import 'package:bankito/user_card_section/user_cards_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CardsPage extends StatelessWidget {
   const CardsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void addUserCard() {
+      showModalBottomSheet(
+        isScrollControlled: true,
+        backgroundColor: const Color.fromRGBO(17, 17, 17, 0.95),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+        ),
+        context: context,
+        builder: (context) => AddCardSheet(),
+      );
+    }
+
     return Column(
       children: [
         Container(
@@ -21,6 +39,7 @@ class CardsPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.75,
           child: Column(
             children: [
+              SizedBox(height: 20),
               //Title
               const Text(
                 'Your Cards',
@@ -33,9 +52,15 @@ class CardsPage extends StatelessWidget {
 
               //User cards
               Flexible(
-                child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) => const UserCard(),
+                child: Consumer<UserCardsProvider>(
+                  builder: (context, userCards, child) => ListView.builder(
+                    itemCount: userCards.userCards.length,
+                    itemBuilder: (context, index) => UserCard(
+                      name: userCards.userCards[index].name,
+                      cardNumber: userCards.userCards[index].cardNumber,
+                      expiryDate: userCards.userCards[index].expiryDate,
+                    ),
+                  ),
                 ),
               )
             ],
@@ -56,7 +81,7 @@ class CardsPage extends StatelessWidget {
             backgroundColor:
                 const MaterialStatePropertyAll(CustomColors.secondColor),
           ),
-          onPressed: () {},
+          onPressed: addUserCard,
           icon: const Icon(
             Icons.add,
             color: Colors.black,

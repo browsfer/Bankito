@@ -3,12 +3,12 @@
 import 'package:bankito/providers/tabs_provider.dart';
 import 'package:bankito/providers/transactions_provider.dart';
 import 'package:bankito/theme/colors.dart';
-import 'package:bankito/widgets/dropdown_button.dart';
+import 'package:bankito/buttons/dropdown_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/single_transaction.dart';
+import '../user_transactions_section/single_transaction_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

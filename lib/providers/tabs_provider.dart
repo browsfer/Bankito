@@ -1,6 +1,6 @@
-import 'package:bankito/pages/cards_page.dart';
+import 'package:bankito/user_card_section/cards_page.dart';
 import 'package:bankito/pages/home_page.dart';
-import 'package:bankito/pages/transaction_history_page.dart';
+import 'package:bankito/user_transactions_section/transaction_history_page.dart';
 import 'package:bankito/theme/colors.dart';
 import 'package:flutter/material.dart';
 

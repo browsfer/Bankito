@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class UserCard extends StatelessWidget {
-  const UserCard({super.key});
+  final String name;
+  // final String currency;
+  final int cardNumber;
+  final String expiryDate;
+
+  const UserCard(
+      {required this.name,
+      required this.cardNumber,
+      required this.expiryDate,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +35,11 @@ class UserCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    '9019 **** **** 2818',
-                    style: TextStyle(
+                    '$cardNumber',
+                    style: const TextStyle(
                       fontSize: 18,
                       color: Colors.white,
                     ),
@@ -40,23 +49,24 @@ class UserCard extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Row(
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Expiry',
                         style: TextStyle(color: Colors.grey),
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       Text(
-                        '05/25',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        expiryDate,
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.white),
                       ),
-                      SizedBox(width: 20),
-                      Text(
+                      const SizedBox(width: 20),
+                      const Text(
                         'CVV',
                         style: TextStyle(color: Colors.grey),
                       ),
-                      SizedBox(width: 10),
-                      Text(
+                      const SizedBox(width: 10),
+                      const Text(
                         '***',
                         style: TextStyle(
                           color: Colors.white,
@@ -66,11 +76,11 @@ class UserCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Align(
+                Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    'Dom Tyka',
-                    style: TextStyle(
+                    name,
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
                   ),
@@ -79,7 +89,7 @@ class UserCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],
