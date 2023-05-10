@@ -4,6 +4,7 @@ import 'package:bankito/user_card_section/user_card_widget.dart';
 import 'package:bankito/user_card_section/user_cards_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CardsPage extends StatelessWidget {
   const CardsPage({super.key});
@@ -26,6 +27,7 @@ class CardsPage extends StatelessWidget {
     }
 
     return Column(
+      mainAxisSize: MainAxisSize.max,
       children: [
         Container(
           decoration: const BoxDecoration(
@@ -36,8 +38,9 @@ class CardsPage extends StatelessWidget {
             color: CustomColors.mainColor,
           ),
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 0.75,
+          height: MediaQuery.of(context).size.height * 0.70,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 20),
               //Title
@@ -51,22 +54,50 @@ class CardsPage extends StatelessWidget {
               const SizedBox(height: 20),
 
               //User cards
-              Flexible(
-                child: Consumer<UserCardsProvider>(
-                  builder: (context, userCards, child) => ListView.builder(
-                    itemCount: userCards.userCards.length,
-                    itemBuilder: (context, index) => UserCard(
-                      name: userCards.userCards[index].name,
-                      cardNumber: userCards.userCards[index].cardNumber,
-                      expiryDate: userCards.userCards[index].expiryDate,
-                    ),
-                  ),
-                ),
+              FutureBuilder(
+                future: Provider.of<UserCardsProvider>(context, listen: false)
+                    .fetchCardsData(),
+                builder: (ctx, snapshot) => snapshot.connectionState ==
+                        ConnectionState.waiting
+                    ? Center(
+                        child: LoadingAnimationWidget.halfTriangleDot(
+                          color: CustomColors.secondColor,
+                          size: 40,
+                        ),
+                      )
+                    : Flexible(
+                        child: Consumer<UserCardsProvider>(
+                          builder: (context, userCards, child) => userCards
+                                  .userCards.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    'Add your first card!',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  itemCount: userCards.userCards.length,
+                                  itemBuilder: (context, index) => UserCard(
+                                    name: userCards.userCards[index].name,
+                                    currency:
+                                        userCards.userCards[index].currency,
+                                    cardNumber:
+                                        userCards.userCards[index].cardNumber,
+                                    expiryDate:
+                                        userCards.userCards[index].expiryDate,
+                                  ),
+                                ),
+                        ),
+                      ),
               )
             ],
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 20),
+
         //ADD CARD button
         ElevatedButton.icon(
           style: ButtonStyle(

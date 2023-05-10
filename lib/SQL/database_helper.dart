@@ -8,10 +8,10 @@ class DBhelper {
     final dbPath = await sql.getDatabasesPath();
     return sql.openDatabase(
       version: 1,
-      path.join(dbPath, 'transactions.db'),
+      path.join(dbPath, 'user_cards.db'),
       onCreate: (db, version) {
         return db.execute(
-            'CREATE TABLE user_transactions(id TEXT PRIMARY KEY, transactionDate TEXT, transactionAmount , recipent TEXT)');
+            'CREATE TABLE user_cards(id TEXT PRIMARY KEY, name TEXT, currency TEXT, cardNumber INTEGER, expiryDate TEXT)');
       },
     );
   }

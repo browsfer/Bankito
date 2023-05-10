@@ -1,13 +1,15 @@
+import 'package:bankito/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class UserCard extends StatelessWidget {
   final String name;
-  // final String currency;
+  final String currency;
   final int cardNumber;
   final String expiryDate;
 
   const UserCard(
       {required this.name,
+      required this.currency,
       required this.cardNumber,
       required this.expiryDate,
       super.key});
@@ -75,7 +77,7 @@ class UserCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
@@ -85,6 +87,25 @@ class UserCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text(
+                      'Card currency:',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      currency,
+                      style: const TextStyle(
+                          color: CustomColors.secondColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

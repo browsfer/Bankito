@@ -20,6 +20,14 @@ class _AddCardSheetState extends State<AddCardSheet> {
 
   final _cvvController = TextEditingController();
 
+  String? currentCurrency;
+
+  List<String> _currenciesList = [
+    'EUR',
+    'PLN',
+    'USD',
+  ];
+
   @override
   void dispose() {
     _expiryDateController.dispose();
@@ -34,12 +42,15 @@ class _AddCardSheetState extends State<AddCardSheet> {
   Widget build(BuildContext context) {
     // Add card to CardsProvider list
     void addNewCard() {
+      //ADD VALIDATION TO FORMS LATER
+
       Provider.of<UserCardsProvider>(context, listen: false).addNewCard(
-        _nameOnCardController.text.trim(),
-        'CVV',
-        int.parse(_cardNumberController.text.trim()),
-        _expiryDateController.text.trim(),
+        cardNumber: int.parse(_cardNumberController.text.trim()),
+        currency: currentCurrency,
+        expiryDate: _expiryDateController.text.trim(),
+        name: _nameOnCardController.text.trim(),
       );
+
       Navigator.of(context).pop();
     }
 
@@ -60,13 +71,47 @@ class _AddCardSheetState extends State<AddCardSheet> {
             ),
           ),
           const SizedBox(height: 15),
-          const Text(
-            'Add your card',
-            style: TextStyle(
-              color: Colors.grey,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Choose card currency:',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(width: 20),
+
+              //CHOOSE CURRENCY
+              DropdownButtonHideUnderline(
+                child: DropdownButton(
+                    iconEnabledColor: CustomColors.secondColor,
+                    icon: const Icon(Icons.currency_exchange),
+                    borderRadius: BorderRadius.circular(24),
+                    dropdownColor: CustomColors.mainColor,
+                    items: _currenciesList
+                        .map((currencyItem) => DropdownMenuItem(
+                              value: currencyItem,
+                              child: Text(
+                                currencyItem,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    value: currentCurrency,
+                    onChanged: (newVal) {
+                      setState(() {
+                        currentCurrency = newVal!;
+                      });
+                    }),
+              ),
+            ],
           ),
           const SizedBox(height: 25),
+
+          //CARD NUMBER
           TextFormField(
             controller: _cardNumberController,
             keyboardType: TextInputType.number,
@@ -90,7 +135,9 @@ class _AddCardSheetState extends State<AddCardSheet> {
               ),
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
+
+          //NAME ON THE CARD
           TextFormField(
             controller: _nameOnCardController,
             keyboardType: TextInputType.name,
@@ -114,10 +161,11 @@ class _AddCardSheetState extends State<AddCardSheet> {
               ),
             ),
           ),
-          SizedBox(height: 35),
+          const SizedBox(height: 35),
           Row(
             children: [
               Flexible(
+                //EXPIRY DATE
                 child: TextFormField(
                   controller: _expiryDateController,
                   keyboardType: TextInputType.number,
@@ -143,8 +191,9 @@ class _AddCardSheetState extends State<AddCardSheet> {
                   ),
                 ),
               ),
-              SizedBox(width: 40),
+              const SizedBox(width: 40),
               Flexible(
+                //CVV
                 child: TextFormField(
                   controller: _cvvController,
                   keyboardType: TextInputType.number,
@@ -172,13 +221,14 @@ class _AddCardSheetState extends State<AddCardSheet> {
               ),
             ],
           ),
-          SizedBox(height: 45),
+
+          const SizedBox(height: 45),
           CustomButton(
             title: 'Add Card',
             onTap: addNewCard,
             isLime: true,
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
         ],
       ),
     );

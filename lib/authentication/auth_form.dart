@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../theme/colors.dart';
 import '../buttons/custom_button.dart';
@@ -120,10 +121,13 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Center(
+      return Center(
         child: AlertDialog(
           backgroundColor: Colors.transparent,
-          content: CircularProgressIndicator(color: CustomColors.secondColor),
+          content: LoadingAnimationWidget.halfTriangleDot(
+            color: CustomColors.secondColor,
+            size: 40,
+          ),
         ),
       );
     } else {

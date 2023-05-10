@@ -1,7 +1,7 @@
 // ignore: unused_import
 import 'dart:ffi';
 
-import 'package:bankito/providers/transactions_provider.dart';
+import 'package:bankito/user_transactions_section/transactions_provider.dart';
 import 'package:bankito/theme/colors.dart';
 import 'package:bankito/user_transactions_section/single_transaction_tile.dart';
 import 'package:bankito/user_transactions_section/transactions_page_button.dart';

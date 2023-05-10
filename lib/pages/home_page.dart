@@ -1,7 +1,7 @@
 // ignore_for_file: sort_child_properties_last
 
-import 'package:bankito/providers/tabs_provider.dart';
-import 'package:bankito/providers/transactions_provider.dart';
+import 'package:bankito/navigation/tabs_provider.dart';
+import 'package:bankito/user_transactions_section/transactions_provider.dart';
 import 'package:bankito/theme/colors.dart';
 import 'package:bankito/buttons/dropdown_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';

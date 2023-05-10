@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/tabs_provider.dart';
+import 'tabs_provider.dart';
 
 class TabsScreen extends StatelessWidget {
   const TabsScreen({super.key});
