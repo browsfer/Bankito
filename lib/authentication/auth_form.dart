@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +128,7 @@ class _AuthFormState extends State<AuthForm> {
           backgroundColor: Colors.transparent,
           content: LoadingAnimationWidget.halfTriangleDot(
             color: CustomColors.secondColor,
-            size: 40,
+            size: 50,
           ),
         ),
       );
@@ -292,6 +294,7 @@ class _AuthFormState extends State<AuthForm> {
                         if (value != _passwordController.text) {
                           return 'Passwords dont match';
                         }
+                        return null;
                       },
                       style: const TextStyle(
                         color: Colors.white70,
@@ -318,9 +321,10 @@ class _AuthFormState extends State<AuthForm> {
             //Submit button
             const SizedBox(height: 15),
             CustomButton(
-              title: widget.isSignIn ? 'Sign In' : 'Sign Up',
-              onTap: widget.isSignIn ? signInUser : createNewUser,
-              isLime: true,
+              textColor: CustomColors.mainColor,
+              text: widget.isSignIn ? 'Sign In' : 'Sign Up',
+              onPressed: widget.isSignIn ? signInUser : createNewUser,
+              color: CustomColors.secondColor,
             ),
             const SizedBox(height: 15),
           ],

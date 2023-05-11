@@ -1,9 +1,9 @@
 // ignore_for_file: sort_child_properties_last
 
+import 'package:bankito/buttons/custom_button.dart';
 import 'package:bankito/navigation/tabs_provider.dart';
 import 'package:bankito/user_transactions_section/transactions_provider.dart';
 import 'package:bankito/theme/colors.dart';
-import 'package:bankito/buttons/dropdown_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,19 +48,19 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Column(
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     // User profile picture
-                    const CircleAvatar(
+                    CircleAvatar(
                       backgroundImage: AssetImage(
                         'assets/images/profile_avatar.png',
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
                     // User name and account info
                     Column(
-                      children: const [
+                      children: [
                         Text(
                           'Dominik',
                           style: TextStyle(
@@ -74,12 +74,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    const Spacer(),
-
-                    // Menu
-                    const MyDropDownButton(),
                   ],
                 ),
+                const SizedBox(height: 5),
                 const Divider(color: Colors.grey),
                 const SizedBox(height: 10),
                 // Balance
@@ -107,54 +104,46 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    InkWell(
-                      onTap: selectAddMoney,
-                      child: Container(
-                        padding: const EdgeInsets.all(48),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(34, 34, 34, 1),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
+                    CustomButton(
+                      onPressed: selectAddMoney,
+                      splashColor: CustomColors.secondColor,
+                      borderRadius: BorderRadius.circular(12),
+                      color: const Color.fromARGB(34, 34, 34, 1),
+                      child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(
                               Icons.attach_money,
                               color: Colors.white,
                             ),
-                            SizedBox(height: 5),
                             Text(
                               'Add money',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            )
+                          ]),
+                      textColor: Colors.white,
+                      height: 150,
+                      width: 150,
                     ),
-                    const SizedBox(width: 15),
-                    InkWell(
-                      onTap: selectTransfer,
-                      child: Container(
-                        padding: const EdgeInsets.all(48),
-                        decoration: BoxDecoration(
-                          color: CustomColors.secondColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(
-                              Icons.money_outlined,
-                              color: CustomColors.mainColor,
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              'Transfer',
-                              style: TextStyle(color: CustomColors.mainColor),
-                            ),
-                          ],
-                        ),
+                    const SizedBox(width: 20),
+                    CustomButton(
+                      onPressed: selectTransfer,
+                      borderRadius: BorderRadius.circular(12),
+                      color: CustomColors.secondColor,
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.attach_money,
+                            color: CustomColors.mainColor,
+                          ),
+                          Text('Transfer')
+                        ],
                       ),
+                      height: 150,
+                      width: 150,
                     ),
                   ],
                 ),

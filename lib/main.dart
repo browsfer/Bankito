@@ -1,5 +1,3 @@
-import 'package:bankito/onboarding/onboarding_screen.dart';
-import 'package:bankito/user_card_section/cards_page.dart';
 import 'package:bankito/navigation/tabs_provider.dart';
 import 'package:bankito/navigation/tabs_screen.dart';
 import 'package:bankito/user_card_section/user_cards_provider.dart';
@@ -10,7 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'pages/home_page.dart';
+import 'home/home_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -45,6 +43,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
+          useMaterial3: true,
           fontFamily: 'Switzer',
         ),
         debugShowCheckedModeBanner: false,

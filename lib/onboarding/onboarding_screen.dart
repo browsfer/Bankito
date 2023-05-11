@@ -1,5 +1,6 @@
 import 'package:bankito/authentication/auth_form.dart';
 import 'package:bankito/onboarding/my_intro_slider.dart';
+import 'package:bankito/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../buttons/custom_button.dart';
@@ -50,22 +51,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           // User authentication section
-          Expanded(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomButton(
-                  title: 'Sign in',
-                  onTap: () => userAuth(true),
-                  isLime: false,
-                ),
-                CustomButton(
-                  title: 'Sign up',
-                  onTap: () => userAuth(false),
-                  isLime: true,
-                ),
-              ],
+          Flexible(
+            child: Align(
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomButton(
+                    width: 150,
+                    height: 80,
+                    text: 'Sign in',
+                    textColor: Colors.black,
+                    onPressed: () => userAuth(true),
+                    color: CustomColors.secondColor,
+                  ),
+                  CustomButton(
+                    width: 150,
+                    height: 80,
+                    text: 'Sign up',
+                    textColor: CustomColors.mainColor,
+                    onPressed: () => userAuth(false),
+                    color: CustomColors.secondColor,
+                  ),
+                ],
+              ),
             ),
           )
         ],

@@ -1,3 +1,4 @@
+import 'package:bankito/buttons/dropdown_button.dart';
 import 'package:bankito/theme/colors.dart';
 import 'package:bankito/buttons/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'user_cards_provider.dart';
 
 class AddCardSheet extends StatefulWidget {
-  AddCardSheet({super.key});
+  const AddCardSheet({super.key});
 
   @override
   State<AddCardSheet> createState() => _AddCardSheetState();
@@ -22,7 +23,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
 
   String? currentCurrency;
 
-  List<String> _currenciesList = [
+  final List<String> _currenciesList = [
     'EUR',
     'PLN',
     'USD',
@@ -83,29 +84,37 @@ class _AddCardSheetState extends State<AddCardSheet> {
               const SizedBox(width: 20),
 
               //CHOOSE CURRENCY
-              DropdownButtonHideUnderline(
-                child: DropdownButton(
-                    iconEnabledColor: CustomColors.secondColor,
-                    icon: const Icon(Icons.currency_exchange),
-                    borderRadius: BorderRadius.circular(24),
-                    dropdownColor: CustomColors.mainColor,
-                    items: _currenciesList
-                        .map((currencyItem) => DropdownMenuItem(
-                              value: currencyItem,
-                              child: Text(
-                                currencyItem,
-                                style: const TextStyle(
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                    value: currentCurrency,
-                    onChanged: (newVal) {
-                      setState(() {
-                        currentCurrency = newVal!;
-                      });
-                    }),
+              CustomDropdownButton(
+                value: currentCurrency,
+                items: _currenciesList
+                    .map((currencyItem) => DropdownMenuItem(
+                          value: currencyItem,
+                          child: Text(
+                            currencyItem,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+                onChanged: (newVal) {
+                  setState(() {
+                    currentCurrency = newVal!;
+                  });
+                },
+                icon: const Icon(Icons.currency_exchange),
+                iconEnabledColor: CustomColors.secondColor,
+                borderRadius: BorderRadius.circular(24),
+                dropdownColor: CustomColors.mainColor,
+                border: Border.all(
+                  width: 1,
+                  color: CustomColors.secondColor,
+                ),
+                buttonWidth: 80,
+                buttonHeight: 40,
+                buttonPadding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                ),
               ),
             ],
           ),
@@ -222,11 +231,14 @@ class _AddCardSheetState extends State<AddCardSheet> {
             ],
           ),
 
+          //ADD CARD BUTTON
           const SizedBox(height: 45),
           CustomButton(
-            title: 'Add Card',
-            onTap: addNewCard,
-            isLime: true,
+            text: 'Add Card',
+            onPressed: addNewCard,
+            color: CustomColors.secondColor,
+            radius: 99,
+            textColor: CustomColors.mainColor,
           ),
           const SizedBox(height: 15),
         ],

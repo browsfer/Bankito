@@ -36,7 +36,6 @@ class UserCard extends StatelessWidget {
                     scale: 1.5,
                   ),
                 ),
-                const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -110,9 +109,7 @@ class UserCard extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 25),
       ],
     );
   }

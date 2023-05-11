@@ -1,38 +1,68 @@
-import 'package:bankito/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final Function()? onTap;
-  final String title;
-  final bool isLime;
-  const CustomButton({
-    super.key,
-    required this.title,
-    required this.onTap,
-    required this.isLime,
-  });
+  final VoidCallback? onPressed;
+  final String? text;
+  final Widget? child;
+  final Color? color;
+  final double? width;
+  final double? height;
+  final Color? textColor;
+  final List<Color>? gradient;
+  final BorderSide? borderSide;
+  final double? radius;
+  final double? textSize;
+  final bool isLoading;
+  final BorderRadius? borderRadius;
+  final Color? splashColor;
+  final EdgeInsets? padding;
+  const CustomButton(
+      {Key? key,
+      this.onPressed,
+      this.textColor,
+      this.text,
+      this.color,
+      this.child,
+      this.width = double.infinity,
+      this.height,
+      this.gradient = const [Colors.transparent, Colors.transparent],
+      this.borderSide,
+      this.radius = 50,
+      this.borderRadius,
+      this.isLoading = false,
+      this.textSize,
+      this.splashColor,
+      this.padding})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 60,
-          vertical: 30,
-        ),
-        decoration: BoxDecoration(
-          color: isLime ? CustomColors.secondColor : Colors.grey[200],
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
+    return IgnorePointer(
+      ignoring: isLoading ? true : false,
+      child: SizedBox(
+        height: height ?? 60,
+        width: width,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 650),
+          decoration: BoxDecoration(
+              borderRadius: borderRadius ?? BorderRadius.circular(radius!),
+              gradient: LinearGradient(colors: gradient!)),
+          child: MaterialButton(
+            padding: padding,
+            splashColor: splashColor,
+            elevation: 0,
+            onPressed: onPressed,
+            color: color,
+            shape: OutlineInputBorder(
+                borderRadius: borderRadius ?? BorderRadius.circular(radius!),
+                borderSide: borderSide ?? BorderSide.none),
+            child: child ??
+                Text(text!,
+                    style: TextStyle(
+                        color: textColor ?? Colors.white,
+                        fontSize: textSize ?? 17,
+                        fontWeight: FontWeight.w600)),
           ),
-          textAlign: TextAlign.center,
         ),
       ),
     );

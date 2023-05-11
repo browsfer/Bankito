@@ -27,7 +27,7 @@ class CardsPage extends StatelessWidget {
     }
 
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
           decoration: const BoxDecoration(
@@ -38,11 +38,11 @@ class CardsPage extends StatelessWidget {
             color: CustomColors.mainColor,
           ),
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 0.70,
+          height: MediaQuery.of(context).size.height * 0.75,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               //Title
               const Text(
                 'Your Cards',
@@ -69,7 +69,7 @@ class CardsPage extends StatelessWidget {
                         child: Consumer<UserCardsProvider>(
                           builder: (context, userCards, child) => userCards
                                   .userCards.isEmpty
-                              ? Center(
+                              ? const Center(
                                   child: Text(
                                     'Add your first card!',
                                     style: TextStyle(
@@ -96,33 +96,35 @@ class CardsPage extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 20),
 
         //ADD CARD button
-        ElevatedButton.icon(
-          style: ButtonStyle(
-            shape: MaterialStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(99),
+        Flexible(
+          child: ElevatedButton.icon(
+            style: ButtonStyle(
+              shape: MaterialStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(99),
+                ),
               ),
+              padding: const MaterialStatePropertyAll(
+                EdgeInsets.all(20),
+              ),
+              backgroundColor:
+                  const MaterialStatePropertyAll(CustomColors.secondColor),
             ),
-            padding: const MaterialStatePropertyAll(
-              EdgeInsets.all(20),
+            onPressed: addUserCard,
+            icon: const Icon(
+              Icons.add,
+              color: Colors.black,
             ),
-            backgroundColor:
-                const MaterialStatePropertyAll(CustomColors.secondColor),
+            label: const Text(
+              'Add card',
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
           ),
-          onPressed: addUserCard,
-          icon: const Icon(
-            Icons.add,
-            color: Colors.black,
-          ),
-          label: const Text(
-            'Add card',
-            style: TextStyle(color: Colors.black),
-            textAlign: TextAlign.center,
-          ),
-        )
+        ),
+        SizedBox()
       ],
     );
   }
