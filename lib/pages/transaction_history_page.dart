@@ -1,10 +1,10 @@
 // ignore: unused_import
 import 'dart:ffi';
 
-import 'package:bankito/user_transactions_section/transactions_provider.dart';
-import 'package:bankito/theme/colors.dart';
-import 'package:bankito/user_transactions_section/single_transaction_tile.dart';
-import 'package:bankito/user_transactions_section/transactions_page_button.dart';
+import 'package:bankito/services/providers/transactions_provider.dart';
+import 'package:bankito/utils/colors.dart';
+import 'package:bankito/widgets/custom_button.dart';
+import 'package:bankito/widgets/single_transaction_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +27,7 @@ class TransactionHistoryPage extends StatelessWidget {
             ),
           ),
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 0.20,
+          height: MediaQuery.of(context).size.height * 0.16,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -52,21 +52,38 @@ class TransactionHistoryPage extends StatelessWidget {
                         onPressed: () {},
                       ),
                     ),
-                    TransactionsPageButton(
-                      title: 'Period',
-                      onTap: () {},
+                    CustomButton(
+                      onPressed: () {},
+                      text: 'Product',
+                      textSize: 14,
+                      padding: const EdgeInsets.all(11),
+                      borderRadius: BorderRadius.circular(88),
+                      textColor: Colors.grey,
+                      height: 50,
+                      width: 90,
+                      borderSide: BorderSide(color: Colors.grey, width: 1),
                     ),
-                    TransactionsPageButton(
-                      title: 'Price',
-                      onTap: () {},
+                    CustomButton(
+                      onPressed: () {},
+                      text: 'Dates',
+                      textSize: 14,
+                      padding: const EdgeInsets.all(11),
+                      borderRadius: BorderRadius.circular(88),
+                      textColor: Colors.grey,
+                      height: 50,
+                      width: 90,
+                      borderSide: BorderSide(color: Colors.grey, width: 1),
                     ),
-                    TransactionsPageButton(
-                      title: 'Product',
-                      onTap: () {},
-                    ),
-                    TransactionsPageButton(
-                      title: 'Type',
-                      onTap: () {},
+                    CustomButton(
+                      onPressed: () {},
+                      text: 'Type',
+                      textSize: 14,
+                      padding: const EdgeInsets.all(11),
+                      borderRadius: BorderRadius.circular(88),
+                      textColor: Colors.grey,
+                      height: 50,
+                      width: 90,
+                      borderSide: BorderSide(color: Colors.grey, width: 1),
                     ),
                   ],
                 ),

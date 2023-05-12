@@ -1,9 +1,9 @@
-import 'package:bankito/buttons/dropdown_button.dart';
-import 'package:bankito/theme/colors.dart';
-import 'package:bankito/buttons/custom_button.dart';
+import 'package:bankito/widgets/dropdown_button.dart';
+import 'package:bankito/utils/colors.dart';
+import 'package:bankito/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'user_cards_provider.dart';
+import '../services/providers/user_cards_provider.dart';
 
 class AddCardSheet extends StatefulWidget {
   const AddCardSheet({super.key});

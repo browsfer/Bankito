@@ -1,7 +1,7 @@
-import 'package:bankito/theme/colors.dart';
-import 'package:bankito/user_card_section/add_card.dart';
-import 'package:bankito/user_card_section/user_card_widget.dart';
-import 'package:bankito/user_card_section/user_cards_provider.dart';
+import 'package:bankito/utils/colors.dart';
+import 'package:bankito/widgets/add_card_bottomsheet.dart';
+import 'package:bankito/widgets/user_card_widget.dart';
+import 'package:bankito/services/providers/user_cards_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';

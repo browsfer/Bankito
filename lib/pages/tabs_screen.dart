@@ -1,9 +1,9 @@
-import 'package:bankito/theme/colors.dart';
+import 'package:bankito/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'tabs_provider.dart';
+import '../services/providers/tabs_provider.dart';
 
 class TabsScreen extends StatelessWidget {
   const TabsScreen({super.key});

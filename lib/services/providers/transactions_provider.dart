@@ -1,4 +1,4 @@
-import 'package:bankito/models/transaction.dart';
+import 'package:bankito/services/models/transaction.dart';
 import 'package:flutter/material.dart';
 
 class TransactionsProvider extends ChangeNotifier {

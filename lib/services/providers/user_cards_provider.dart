@@ -1,5 +1,5 @@
-import 'package:bankito/SQL/database_helper.dart';
-import 'package:bankito/models/user_card.dart';
+import 'package:bankito/services/functions/database_helper.dart';
+import 'package:bankito/services/models/user_card.dart';
 import 'package:flutter/material.dart';
 
 class UserCardsProvider extends ChangeNotifier {

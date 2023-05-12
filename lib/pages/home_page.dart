@@ -1,14 +1,14 @@
 // ignore_for_file: sort_child_properties_last
 
-import 'package:bankito/buttons/custom_button.dart';
-import 'package:bankito/navigation/tabs_provider.dart';
-import 'package:bankito/user_transactions_section/transactions_provider.dart';
-import 'package:bankito/theme/colors.dart';
+import 'package:bankito/widgets/custom_button.dart';
+import 'package:bankito/services/providers/tabs_provider.dart';
+import 'package:bankito/services/providers/transactions_provider.dart';
+import 'package:bankito/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../user_transactions_section/single_transaction_tile.dart';
+import '../widgets/single_transaction_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

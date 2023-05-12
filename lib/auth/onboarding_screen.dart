@@ -1,9 +1,9 @@
-import 'package:bankito/authentication/auth_form.dart';
-import 'package:bankito/onboarding/my_intro_slider.dart';
-import 'package:bankito/theme/colors.dart';
+import 'package:bankito/auth/auth_form.dart';
+import 'package:bankito/widgets/my_intro_slider.dart';
+import 'package:bankito/utils/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../buttons/custom_button.dart';
+import '../widgets/custom_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

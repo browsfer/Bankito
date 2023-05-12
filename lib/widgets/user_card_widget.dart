@@ -1,4 +1,4 @@
-import 'package:bankito/theme/colors.dart';
+import 'package:bankito/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class UserCard extends StatelessWidget {
