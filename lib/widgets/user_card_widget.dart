@@ -61,18 +61,7 @@ class UserCard extends StatelessWidget {
                         style:
                             const TextStyle(fontSize: 16, color: Colors.white),
                       ),
-                      const SizedBox(width: 20),
-                      const Text(
-                        'CVV',
-                        style: TextStyle(color: Colors.grey),
-                      ),
                       const SizedBox(width: 10),
-                      const Text(
-                        '***',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
                     ],
                   ),
                 ),

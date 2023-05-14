@@ -16,6 +16,8 @@ class CustomButton extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Color? splashColor;
   final EdgeInsets? padding;
+  final TextAlign? textAlign;
+
   const CustomButton(
       {Key? key,
       this.onPressed,
@@ -32,7 +34,8 @@ class CustomButton extends StatelessWidget {
       this.isLoading = false,
       this.textSize,
       this.splashColor,
-      this.padding})
+      this.padding,
+      this.textAlign})
       : super(key: key);
 
   @override
@@ -57,11 +60,14 @@ class CustomButton extends StatelessWidget {
                 borderRadius: borderRadius ?? BorderRadius.circular(radius!),
                 borderSide: borderSide ?? BorderSide.none),
             child: child ??
-                Text(text!,
-                    style: TextStyle(
-                        color: textColor ?? Colors.white,
-                        fontSize: textSize ?? 17,
-                        fontWeight: FontWeight.w600)),
+                Text(
+                  text!,
+                  textAlign: textAlign ?? TextAlign.center,
+                  style: TextStyle(
+                      color: textColor ?? Colors.white,
+                      fontSize: textSize ?? 17,
+                      fontWeight: FontWeight.w600),
+                ),
           ),
         ),
       ),

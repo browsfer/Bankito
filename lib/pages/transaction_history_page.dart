@@ -1,6 +1,3 @@
-// ignore: unused_import
-import 'dart:ffi';
-
 import 'package:bankito/services/providers/transactions_provider.dart';
 import 'package:bankito/utils/colors.dart';
 import 'package:bankito/widgets/custom_button.dart';
@@ -36,6 +33,7 @@ class TransactionHistoryPage extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               const SizedBox(height: 25),
+
               //Buttons
               Flexible(
                 child: Row(
@@ -61,7 +59,8 @@ class TransactionHistoryPage extends StatelessWidget {
                       textColor: Colors.grey,
                       height: 50,
                       width: 90,
-                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                      borderSide:
+                          const BorderSide(color: Colors.grey, width: 1),
                     ),
                     CustomButton(
                       onPressed: () {},
@@ -72,7 +71,8 @@ class TransactionHistoryPage extends StatelessWidget {
                       textColor: Colors.grey,
                       height: 50,
                       width: 90,
-                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                      borderSide:
+                          const BorderSide(color: Colors.grey, width: 1),
                     ),
                     CustomButton(
                       onPressed: () {},
@@ -83,7 +83,8 @@ class TransactionHistoryPage extends StatelessWidget {
                       textColor: Colors.grey,
                       height: 50,
                       width: 90,
-                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                      borderSide:
+                          const BorderSide(color: Colors.grey, width: 1),
                     ),
                   ],
                 ),
@@ -91,6 +92,7 @@ class TransactionHistoryPage extends StatelessWidget {
             ],
           ),
         ),
+
         // List of transactions
         Flexible(
           child: Consumer<TransactionsProvider>(

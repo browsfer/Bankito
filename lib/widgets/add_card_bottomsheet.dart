@@ -1,4 +1,4 @@
-import 'package:bankito/widgets/dropdown_button.dart';
+import 'package:bankito/widgets/custom_dropdown_button.dart';
 import 'package:bankito/utils/colors.dart';
 import 'package:bankito/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +27,8 @@ class _AddCardSheetState extends State<AddCardSheet> {
     'EUR',
     'PLN',
     'USD',
+    'AUD',
+    'CZK',
   ];
 
   @override
@@ -43,8 +45,6 @@ class _AddCardSheetState extends State<AddCardSheet> {
   Widget build(BuildContext context) {
     // Add card to CardsProvider list
     void addNewCard() {
-      //ADD VALIDATION TO FORMS LATER
-
       Provider.of<UserCardsProvider>(context, listen: false).addNewCard(
         cardNumber: int.parse(_cardNumberController.text.trim()),
         currency: currentCurrency,
@@ -72,51 +72,43 @@ class _AddCardSheetState extends State<AddCardSheet> {
             ),
           ),
           const SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Choose card currency:',
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
+          CustomDropdownButton(
+            hintText: const Text(
+              'Choose Currency',
+              style: TextStyle(
+                color: Colors.grey,
               ),
-              const SizedBox(width: 20),
-
-              //CHOOSE CURRENCY
-              CustomDropdownButton(
-                value: currentCurrency,
-                items: _currenciesList
-                    .map((currencyItem) => DropdownMenuItem(
-                          value: currencyItem,
-                          child: Text(
-                            currencyItem,
-                            style: const TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ))
-                    .toList(),
-                onChanged: (newVal) {
-                  setState(() {
-                    currentCurrency = newVal!;
-                  });
-                },
-                icon: const Icon(Icons.currency_exchange),
-                iconEnabledColor: CustomColors.secondColor,
-                borderRadius: BorderRadius.circular(24),
-                dropdownColor: CustomColors.mainColor,
-                border: Border.all(
-                  width: 1,
-                  color: CustomColors.secondColor,
-                ),
-                buttonWidth: 80,
-                buttonHeight: 40,
-                buttonPadding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                ),
-              ),
-            ],
+            ),
+            value: currentCurrency,
+            items: _currenciesList
+                .map((currencyItem) => DropdownMenuItem(
+                      value: currencyItem,
+                      child: Text(
+                        currencyItem,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ))
+                .toList(),
+            onChanged: (newVal) {
+              setState(() {
+                currentCurrency = newVal!;
+              });
+            },
+            icon: const Icon(Icons.currency_exchange),
+            iconEnabledColor: CustomColors.secondColor,
+            borderRadius: BorderRadius.circular(24),
+            dropdownColor: CustomColors.mainColor,
+            border: Border.all(
+              width: 1,
+              color: CustomColors.secondColor,
+            ),
+            buttonWidth: 180,
+            buttonHeight: 40,
+            buttonPadding: const EdgeInsets.symmetric(
+              horizontal: 8,
+            ),
           ),
           const SizedBox(height: 25),
 
@@ -148,6 +140,15 @@ class _AddCardSheetState extends State<AddCardSheet> {
 
           //NAME ON THE CARD
           TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (name) {
+              if (name!.isEmpty) {
+                return 'This field is required!';
+              } else if (name.length < 5) {
+                return 'Please insert your full name';
+              }
+              return null;
+            },
             controller: _nameOnCardController,
             keyboardType: TextInputType.name,
             style: const TextStyle(
@@ -171,68 +172,46 @@ class _AddCardSheetState extends State<AddCardSheet> {
             ),
           ),
           const SizedBox(height: 35),
-          Row(
-            children: [
-              Flexible(
-                //EXPIRY DATE
-                child: TextFormField(
-                  controller: _expiryDateController,
-                  keyboardType: TextInputType.number,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                  ),
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.zero,
-                    prefixIcon: Icon(Icons.person),
-                    prefixIconColor: CustomColors.secondColor,
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                    ),
-                    hintText: 'Expiry date',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white38),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: CustomColors.secondColor,
-                      ),
-                    ),
+          Flexible(
+            //EXPIRY DATE
+            child: TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please insert your card expiry date';
+                } else if (value.length < 5 || value.length > 5) {
+                  return 'Please use MM/YY format';
+                }
+                return null;
+              },
+              controller: _expiryDateController,
+              keyboardType: TextInputType.number,
+              style: const TextStyle(
+                color: Colors.white70,
+              ),
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.zero,
+                prefixIcon: Icon(Icons.person),
+                prefixIconColor: CustomColors.secondColor,
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                ),
+                hintText: 'Expiry date',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white38),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: CustomColors.secondColor,
                   ),
                 ),
               ),
-              const SizedBox(width: 40),
-              Flexible(
-                //CVV
-                child: TextFormField(
-                  controller: _cvvController,
-                  keyboardType: TextInputType.number,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                  ),
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.zero,
-                    prefixIcon: Icon(Icons.person),
-                    prefixIconColor: CustomColors.secondColor,
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                    ),
-                    hintText: 'CVV',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white38),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: CustomColors.secondColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
+          const SizedBox(width: 40),
 
           //ADD CARD BUTTON
-          const SizedBox(height: 45),
+          const SizedBox(height: 20),
           CustomButton(
             text: 'Add Card',
             onPressed: addNewCard,

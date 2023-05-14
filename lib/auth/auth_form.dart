@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:bankito/pages/password_reset_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -120,16 +121,28 @@ class _AuthFormState extends State<AuthForm> {
     }
   }
 
+  String? validateEmail(String? value) {
+    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+    final regex = RegExp(pattern);
+
+    return value!.isNotEmpty && !regex.hasMatch(value)
+        ? 'Enter a valid email address'
+        : null;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
       return Center(
-        child: AlertDialog(
-          backgroundColor: Colors.transparent,
-          content: LoadingAnimationWidget.halfTriangleDot(
-            color: CustomColors.secondColor,
-            size: 50,
-          ),
+        child: LoadingAnimationWidget.halfTriangleDot(
+          color: CustomColors.secondColor,
+          size: 50,
         ),
       );
     } else {
@@ -227,12 +240,7 @@ class _AuthFormState extends State<AuthForm> {
 
                   //User email
                   TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter your e-mail address.';
-                      }
-                      return null;
-                    },
+                    validator: validateEmail,
                     keyboardType: TextInputType.emailAddress,
                     style: const TextStyle(
                       color: Colors.white70,
@@ -285,6 +293,32 @@ class _AuthFormState extends State<AuthForm> {
                       ),
                     ),
                   ),
+
+                  //PASSWORD RESET
+                  if (widget.isSignIn)
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PasswordResetPage(),
+                          ),
+                        );
+                      },
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                   const SizedBox(height: 15),
                   //Confirm password
                   if (!widget.isSignIn)
@@ -314,6 +348,7 @@ class _AuthFormState extends State<AuthForm> {
                         ),
                       ),
                     ),
+                  SizedBox(height: 15),
                 ],
               ),
             ),

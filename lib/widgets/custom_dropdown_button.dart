@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomDropdownButton extends StatelessWidget {
+  final Widget? child;
+
   final String? value;
   final TextStyle? textStyle;
   final List<DropdownMenuItem<String>> items;
@@ -16,6 +18,7 @@ class CustomDropdownButton extends StatelessWidget {
   final double? buttonWidth;
   final double? buttonHeight;
   final EdgeInsets? buttonPadding;
+  final Text? hintText;
 
   const CustomDropdownButton(
       {super.key,
@@ -33,7 +36,9 @@ class CustomDropdownButton extends StatelessWidget {
       this.border,
       this.buttonWidth,
       this.buttonHeight,
-      this.buttonPadding});
+      this.buttonPadding,
+      this.hintText,
+      this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +49,7 @@ class CustomDropdownButton extends StatelessWidget {
         height: buttonHeight,
         decoration: BoxDecoration(border: border, borderRadius: borderRadius),
         child: DropdownButton(
+          hint: hintText,
           value: value,
           style: textStyle,
           icon: icon,
