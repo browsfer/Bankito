@@ -8,20 +8,20 @@ class UserCardsProvider extends ChangeNotifier {
   List<UserCard> get userCards => [..._userCards];
 
   Future<void> addNewCard(
-      {required String name,
+      {required String id,
+      required String name,
       required String? currency,
       required int cardNumber,
       required String expiryDate}) async {
     final newCard = UserCard(
-      id: DateTime.now().toString(),
+      id: id,
       name: name,
       currency: currency!,
       cardNumber: cardNumber,
       expiryDate: expiryDate,
     );
 
-    _userCards.insert(
-      0,
+    _userCards.add(
       newCard,
     );
     DBhelper.insert('user_cards', {
@@ -49,6 +49,12 @@ class UserCardsProvider extends ChangeNotifier {
           ),
         )
         .toList();
+    notifyListeners();
+  }
+
+  Future removeUserCard(String id) async {
+    await DBhelper.deleteUserCard(id);
+    _userCards.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 }

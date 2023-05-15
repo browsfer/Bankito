@@ -56,7 +56,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
           elevation: 0,
           backgroundColor: CustomColors.mainColor,
           title: const Text(
-            'There was an problem',
+            'There was a problem',
             style: TextStyle(color: Colors.grey),
           ),
           content: Text(

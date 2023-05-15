@@ -80,7 +80,9 @@ class CardsPage extends StatelessWidget {
                                 )
                               : ListView.builder(
                                   itemCount: userCards.userCards.length,
-                                  itemBuilder: (context, index) => UserCard(
+                                  itemBuilder: (context, index) =>
+                                      UserCardWidget(
+                                    id: userCards.userCards[index].id,
                                     name: userCards.userCards[index].name,
                                     currency:
                                         userCards.userCards[index].currency,

@@ -46,6 +46,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
     // Add card to CardsProvider list
     void addNewCard() {
       Provider.of<UserCardsProvider>(context, listen: false).addNewCard(
+        id: DateTime.now().toString(),
         cardNumber: int.parse(_cardNumberController.text.trim()),
         currency: currentCurrency,
         expiryDate: _expiryDateController.text.trim(),

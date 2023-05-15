@@ -29,4 +29,13 @@ class DBhelper {
     final database = await DBhelper.createDb();
     return database.query(table);
   }
+
+  static Future<void> deleteUserCard(String id) async {
+    final database = await DBhelper.createDb();
+    await database.delete(
+      'user_cards',
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
 }

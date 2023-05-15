@@ -1,6 +1,7 @@
 import 'package:bankito/pages/cards_page.dart';
 import 'package:bankito/pages/home_page.dart';
 import 'package:bankito/pages/transaction_history_page.dart';
+import 'package:bankito/pages/user_settings_page.dart';
 import 'package:bankito/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +65,7 @@ class TabsProvider with ChangeNotifier {
         color: CustomColors.secondColor,
       ),
       label: 'Settings',
-      screen: const HomePage(),
+      screen: const UserSettingsPage(),
     ),
   ];
 
