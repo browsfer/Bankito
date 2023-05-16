@@ -22,7 +22,7 @@ class CardsPage extends StatelessWidget {
           ),
         ),
         context: context,
-        builder: (context) => AddCardSheet(),
+        builder: (context) => const AddCardSheet(),
       );
     }
 
@@ -90,6 +90,8 @@ class CardsPage extends StatelessWidget {
                                         userCards.userCards[index].cardNumber,
                                     expiryDate:
                                         userCards.userCards[index].expiryDate,
+                                    cardType:
+                                        userCards.userCards[index].cardType,
                                   ),
                                 ),
                         ),
@@ -126,7 +128,7 @@ class CardsPage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox()
+        const SizedBox()
       ],
     );
   }

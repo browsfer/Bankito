@@ -1,4 +1,3 @@
-import 'package:bankito/services/functions/database_helper.dart';
 import 'package:bankito/widgets/add_money_bottomsheet.dart';
 import 'package:bankito/widgets/custom_button.dart';
 import 'package:bankito/services/providers/tabs_provider.dart';
@@ -7,7 +6,6 @@ import 'package:bankito/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/single_transaction_tile.dart';
 
 class HomePage extends StatefulWidget {

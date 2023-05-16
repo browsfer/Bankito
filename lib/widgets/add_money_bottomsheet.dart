@@ -102,13 +102,16 @@ class _AddMoneyBottomsheetState extends State<AddMoneyBottomsheet> {
                   .fetchCardsData(),
               builder: (context, snapshot) => Consumer<UserCardsProvider>(
                 builder: (context, userCard, child) => ListView.builder(
-                    itemCount: userCard.userCards.length,
-                    itemBuilder: (context, index) => UserCardWidget(
-                        id: userCard.userCards[index].id,
-                        name: userCard.userCards[index].name,
-                        currency: userCard.userCards[index].currency,
-                        cardNumber: userCard.userCards[index].cardNumber,
-                        expiryDate: userCard.userCards[index].expiryDate)),
+                  itemCount: userCard.userCards.length,
+                  itemBuilder: (context, index) => UserCardWidget(
+                    id: userCard.userCards[index].id,
+                    name: userCard.userCards[index].name,
+                    currency: userCard.userCards[index].currency,
+                    cardNumber: userCard.userCards[index].cardNumber,
+                    expiryDate: userCard.userCards[index].expiryDate,
+                    cardType: userCard.userCards[index].cardType,
+                  ),
+                ),
               ),
             ),
           ),

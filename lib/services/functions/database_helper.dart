@@ -11,7 +11,7 @@ class DBhelper {
       path.join(dbPath, 'user_cards.db'),
       onCreate: (db, version) {
         return db.execute(
-            'CREATE TABLE user_cards(id TEXT PRIMARY KEY, name TEXT, currency TEXT, cardNumber INTEGER, expiryDate TEXT)');
+            'CREATE TABLE user_cards(id TEXT PRIMARY KEY, name TEXT, currency TEXT, cardNumber INTEGER, expiryDate TEXT, cardType TEXT)');
       },
     );
   }

@@ -4,6 +4,7 @@ class UserCard {
   final String currency;
   final int cardNumber;
   final String expiryDate;
+  final String cardType;
 
   UserCard({
     required this.id,
@@ -11,5 +12,6 @@ class UserCard {
     required this.currency,
     required this.cardNumber,
     required this.expiryDate,
+    required this.cardType,
   });
 }

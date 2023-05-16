@@ -9,6 +9,7 @@ class UserCardWidget extends StatefulWidget {
   final String currency;
   final int cardNumber;
   final String expiryDate;
+  final String cardType;
 
   const UserCardWidget({
     required this.id,
@@ -16,6 +17,7 @@ class UserCardWidget extends StatefulWidget {
     required this.currency,
     required this.cardNumber,
     required this.expiryDate,
+    required this.cardType,
     super.key,
   });
 
@@ -74,7 +76,7 @@ class _UserCardWidgetState extends State<UserCardWidget> {
             height: 168,
             width: 335,
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
                   Align(
@@ -145,6 +147,21 @@ class _UserCardWidgetState extends State<UserCardWidget> {
                 ],
               ),
             ),
+          ),
+        ),
+        SizedBox(
+          width: 335,
+          child: Row(
+            children: [
+              const Text(
+                'Card type: ',
+                style: TextStyle(color: Colors.grey, fontSize: 16),
+              ),
+              Text(
+                widget.cardType,
+                style: const TextStyle(color: CustomColors.secondColor),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 25),

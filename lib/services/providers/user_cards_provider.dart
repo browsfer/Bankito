@@ -13,6 +13,7 @@ class UserCardsProvider extends ChangeNotifier {
     required String? currency,
     required int cardNumber,
     required String expiryDate,
+    required String? cardType,
   }) async {
     final newCard = UserCard(
       id: id,
@@ -20,6 +21,7 @@ class UserCardsProvider extends ChangeNotifier {
       currency: currency!,
       cardNumber: cardNumber,
       expiryDate: expiryDate,
+      cardType: cardType!,
     );
 
     _userCards.add(
@@ -30,7 +32,8 @@ class UserCardsProvider extends ChangeNotifier {
       'name': newCard.name,
       'currency': newCard.currency,
       'cardNumber': newCard.cardNumber,
-      'expiryDate': newCard.expiryDate
+      'expiryDate': newCard.expiryDate,
+      'cardType': newCard.cardType,
     });
 
     notifyListeners();
@@ -47,6 +50,7 @@ class UserCardsProvider extends ChangeNotifier {
             currency: value['currency'],
             cardNumber: value['cardNumber'],
             expiryDate: value['expiryDate'],
+            cardType: value['cardType'],
           ),
         )
         .toList();

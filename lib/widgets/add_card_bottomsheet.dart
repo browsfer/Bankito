@@ -19,9 +19,9 @@ class _AddCardSheetState extends State<AddCardSheet> {
 
   final _nameOnCardController = TextEditingController();
 
-  final _cvvController = TextEditingController();
-
   String? currentCurrency;
+
+  String? _cardType;
 
   final List<String> _currenciesList = [
     'EUR',
@@ -31,13 +31,16 @@ class _AddCardSheetState extends State<AddCardSheet> {
     'CZK',
   ];
 
+  final List<String> _cardTypeList = [
+    'Personal',
+    'Business',
+  ];
+
   @override
   void dispose() {
     _expiryDateController.dispose();
     _cardNumberController.dispose();
     _nameOnCardController.dispose();
-    _cvvController.dispose();
-
     super.dispose();
   }
 
@@ -51,6 +54,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
         currency: currentCurrency,
         expiryDate: _expiryDateController.text.trim(),
         name: _nameOnCardController.text.trim(),
+        cardType: _cardType,
       );
 
       Navigator.of(context).pop();
@@ -73,43 +77,89 @@ class _AddCardSheetState extends State<AddCardSheet> {
             ),
           ),
           const SizedBox(height: 15),
-          CustomDropdownButton(
-            hintText: const Text(
-              'Choose Currency',
-              style: TextStyle(
-                color: Colors.grey,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              //Currencies list
+              CustomDropdownButton(
+                hintText: const Text(
+                  'Choose Currency',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+                value: currentCurrency,
+                items: _currenciesList
+                    .map((currencyItem) => DropdownMenuItem(
+                          value: currencyItem,
+                          child: Text(
+                            currencyItem,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+                onChanged: (newVal) {
+                  setState(() {
+                    currentCurrency = newVal!;
+                  });
+                },
+                icon: const Icon(Icons.currency_exchange),
+                iconEnabledColor: CustomColors.secondColor,
+                borderRadius: BorderRadius.circular(24),
+                dropdownColor: CustomColors.mainColor,
+                border: Border.all(
+                  width: 1,
+                  color: Colors.grey,
+                ),
+                buttonWidth: 180,
+                buttonHeight: 40,
+                buttonPadding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                ),
               ),
-            ),
-            value: currentCurrency,
-            items: _currenciesList
-                .map((currencyItem) => DropdownMenuItem(
-                      value: currencyItem,
-                      child: Text(
-                        currencyItem,
-                        style: const TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ))
-                .toList(),
-            onChanged: (newVal) {
-              setState(() {
-                currentCurrency = newVal!;
-              });
-            },
-            icon: const Icon(Icons.currency_exchange),
-            iconEnabledColor: CustomColors.secondColor,
-            borderRadius: BorderRadius.circular(24),
-            dropdownColor: CustomColors.mainColor,
-            border: Border.all(
-              width: 1,
-              color: CustomColors.secondColor,
-            ),
-            buttonWidth: 180,
-            buttonHeight: 40,
-            buttonPadding: const EdgeInsets.symmetric(
-              horizontal: 8,
-            ),
+
+              //Card types list
+              CustomDropdownButton(
+                hintText: const Text(
+                  'Card type',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+                value: _cardType,
+                items: _cardTypeList
+                    .map((_cardType) => DropdownMenuItem(
+                          value: _cardType,
+                          child: Text(
+                            _cardType,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+                onChanged: (newVal) {
+                  setState(() {
+                    _cardType = newVal!;
+                  });
+                },
+                icon: const Icon(Icons.add_card_rounded),
+                iconEnabledColor: CustomColors.secondColor,
+                borderRadius: BorderRadius.circular(24),
+                dropdownColor: CustomColors.mainColor,
+                border: Border.all(
+                  width: 1,
+                  color: Colors.grey,
+                ),
+                buttonWidth: 120,
+                buttonHeight: 40,
+                buttonPadding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 25),
 
