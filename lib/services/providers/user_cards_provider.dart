@@ -7,12 +7,13 @@ class UserCardsProvider extends ChangeNotifier {
 
   List<UserCard> get userCards => [..._userCards];
 
-  Future<void> addNewCard(
-      {required String id,
-      required String name,
-      required String? currency,
-      required int cardNumber,
-      required String expiryDate}) async {
+  Future<void> addNewCard({
+    required String id,
+    required String name,
+    required String? currency,
+    required int cardNumber,
+    required String expiryDate,
+  }) async {
     final newCard = UserCard(
       id: id,
       name: name,

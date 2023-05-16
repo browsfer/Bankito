@@ -99,6 +99,7 @@ class TransactionHistoryPage extends StatelessWidget {
             builder: (context, value, child) => ListView.builder(
               itemCount: value.transactionList.length,
               itemBuilder: (context, index) => SingleTransactionTile(
+                id: value.transactionList[index].transactionId,
                 amount: value.transactionList[index].amount,
                 date: value.transactionList[index].date,
                 recipent: value.transactionList[index].recipent,

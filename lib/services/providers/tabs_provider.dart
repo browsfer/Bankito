@@ -45,18 +45,6 @@ class TabsProvider with ChangeNotifier {
     ),
     NavbarItem(
       icon: const Icon(
-        Icons.currency_exchange,
-        color: Colors.grey,
-      ),
-      activeIcon: const Icon(
-        Icons.currency_exchange,
-        color: CustomColors.secondColor,
-      ),
-      label: 'Exchange',
-      screen: const HomePage(),
-    ),
-    NavbarItem(
-      icon: const Icon(
         Icons.settings,
         color: Colors.grey,
       ),

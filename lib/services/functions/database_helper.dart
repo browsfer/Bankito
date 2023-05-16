@@ -38,4 +38,14 @@ class DBhelper {
       whereArgs: [id],
     );
   }
+
+//Add card balance
+
+  // static Future updateUserData(int userAccountBalance) async {
+  //   final database = await DBhelper.createDb();
+  //   await database.rawUpdate(
+  //     'UPDATE user_cards SET userAccountBalance = ?',
+  //     [userAccountBalance],
+  //   );
+  // }
 }

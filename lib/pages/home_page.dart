@@ -1,11 +1,11 @@
-// ignore_for_file: sort_child_properties_last
-
+import 'package:bankito/services/functions/database_helper.dart';
+import 'package:bankito/widgets/add_money_bottomsheet.dart';
 import 'package:bankito/widgets/custom_button.dart';
 import 'package:bankito/services/providers/tabs_provider.dart';
 import 'package:bankito/services/providers/transactions_provider.dart';
 import 'package:bankito/utils/colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/single_transaction_tile.dart';
@@ -20,9 +20,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var f = NumberFormat.currency(name: 'en', symbol: '\$');
+  String? balanceAsString;
+
   void selectAddMoney() async {
-    //Navigating to page later
-    await FirebaseAuth.instance.signOut();
+    final responseValue = await showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: const Color.fromRGBO(17, 17, 17, 0.95),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
+      context: context,
+      builder: (context) => const AddMoneyBottomsheet(),
+    );
+
+    //FUNCTION TO ADD TO CURRENT VALUE LATER
+    setState(() {
+      balanceAsString = f.format(responseValue);
+    });
   }
 
   void selectTransfer() {
@@ -92,11 +110,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 5),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
+
+                  //Will implement summary from both cards later
                   child: Text(
-                    '29,999 USD',
-                    style: TextStyle(color: Colors.white, fontSize: 35),
+                    balanceAsString ?? '00,000',
+                    style: const TextStyle(color: Colors.white, fontSize: 35),
                   ),
                 ),
                 const SizedBox(height: 15),
@@ -109,6 +129,9 @@ class _HomePageState extends State<HomePage> {
                       splashColor: CustomColors.secondColor,
                       borderRadius: BorderRadius.circular(12),
                       color: const Color.fromARGB(34, 34, 34, 1),
+                      textColor: Colors.white,
+                      height: 150,
+                      width: 150,
                       child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -123,15 +146,14 @@ class _HomePageState extends State<HomePage> {
                               ),
                             )
                           ]),
-                      textColor: Colors.white,
-                      height: 150,
-                      width: 150,
                     ),
                     const SizedBox(width: 20),
                     CustomButton(
                       onPressed: selectTransfer,
                       borderRadius: BorderRadius.circular(12),
                       color: CustomColors.secondColor,
+                      height: 150,
+                      width: 150,
                       child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -142,8 +164,6 @@ class _HomePageState extends State<HomePage> {
                           Text('Transfer')
                         ],
                       ),
-                      height: 150,
-                      width: 150,
                     ),
                   ],
                 ),
@@ -186,6 +206,7 @@ class _HomePageState extends State<HomePage> {
             builder: (context, value, child) => ListView.builder(
               itemCount: value.transactionList.length,
               itemBuilder: (context, index) => SingleTransactionTile(
+                id: value.transactionList[index].transactionId,
                 amount: value.transactionList[index].amount,
                 date: value.transactionList[index].date,
                 recipent: value.transactionList[index].recipent,

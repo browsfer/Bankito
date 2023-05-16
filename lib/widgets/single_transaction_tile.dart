@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SingleTransactionTile extends StatelessWidget {
+  final String id;
   final String recipent;
   final DateTime date;
   final double amount;
@@ -13,7 +13,8 @@ class SingleTransactionTile extends StatelessWidget {
       required this.date,
       required this.amount,
       required this.isIncome,
-      super.key});
+      super.key,
+      required this.id});
 
   @override
   Widget build(BuildContext context) {

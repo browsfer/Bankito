@@ -1,4 +1,3 @@
-import 'package:bankito/auth/onboarding_screen.dart';
 import 'package:bankito/services/providers/tabs_provider.dart';
 import 'package:bankito/pages/tabs_screen.dart';
 import 'package:bankito/services/providers/user_cards_provider.dart';
@@ -53,9 +52,9 @@ class MyApp extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               //Temporary untill app finished
-              return TabsScreen();
+              return const TabsScreen();
             } else {
-              return OnboardingScreen();
+              return const TabsScreen();
             }
           },
         ),
