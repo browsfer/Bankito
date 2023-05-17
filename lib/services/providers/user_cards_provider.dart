@@ -24,7 +24,8 @@ class UserCardsProvider extends ChangeNotifier {
       cardType: cardType!,
     );
 
-    _userCards.add(
+    _userCards.insert(
+      0,
       newCard,
     );
     DBhelper.insertData('user_cards', {

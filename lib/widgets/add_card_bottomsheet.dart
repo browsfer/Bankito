@@ -1,15 +1,15 @@
-import 'package:bankito/utils/text_formatters.dart';
-import 'package:bankito/widgets/custom_dropdown_button.dart';
-import 'package:bankito/utils/colors.dart';
-import 'package:bankito/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:bankito/utils/colors.dart';
+import 'package:bankito/utils/text_formatters.dart';
+import 'package:bankito/widgets/custom_button.dart';
+import 'package:bankito/widgets/custom_dropdown_button.dart';
 import '../services/providers/user_cards_provider.dart';
 
 class AddCardSheet extends StatefulWidget {
-  const AddCardSheet({super.key});
+  const AddCardSheet({Key? key}) : super(key: key);
 
   @override
   State<AddCardSheet> createState() => _AddCardSheetState();
@@ -17,32 +17,16 @@ class AddCardSheet extends StatefulWidget {
 
 class _AddCardSheetState extends State<AddCardSheet> {
   final _expiryDateController = TextEditingController();
-
   final _cardNumberController = TextEditingController();
-
   final _nameOnCardController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
-
-  String? currentCurrency;
-
+  String? _currentCurrency;
   String? _cardType;
-
   bool _isCurrencySelected = false;
   bool _isCardTypeSelected = false;
 
-  final List<String> _currenciesList = [
-    'EUR',
-    'PLN',
-    'USD',
-    'AUD',
-    'CZK',
-  ];
-
-  final List<String> _cardTypeList = [
-    'Personal',
-    'Business',
-  ];
+  final List<String> _currenciesList = ['EUR', 'PLN', 'USD', 'AUD', 'CZK'];
+  final List<String> _cardTypeList = ['Personal', 'Business'];
 
   @override
   void dispose() {
@@ -52,31 +36,33 @@ class _AddCardSheetState extends State<AddCardSheet> {
     super.dispose();
   }
 
+  void addNewCard() {
+    final validate = _formKey.currentState!.validate();
+    if (validate) {
+      if (!_isCardTypeSelected || !_isCurrencySelected) {
+        Fluttertoast.showToast(
+          msg: 'Choose your Currency and Card Type',
+          backgroundColor: CustomColors.mainColor,
+        );
+      } else {
+        Provider.of<UserCardsProvider>(context, listen: false).addNewCard(
+          id: DateTime.now().toString(),
+          cardNumber: int.parse(
+            _cardNumberController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          ),
+          currency: _currentCurrency,
+          expiryDate: _expiryDateController.text.trim(),
+          name: _nameOnCardController.text.trim(),
+          cardType: _cardType,
+        );
+
+        Navigator.of(context).pop();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Add card to CardsProvider list
-    void addNewCard() async {
-      final validate = _formKey.currentState!.validate();
-      if (validate) {
-        if (!_isCardTypeSelected || !_isCurrencySelected) {
-          Fluttertoast.showToast(
-              msg: 'Choose your Currency and Card Type',
-              backgroundColor: CustomColors.mainColor);
-        }
-      }
-
-      Provider.of<UserCardsProvider>(context, listen: false).addNewCard(
-        id: DateTime.now().toString(),
-        cardNumber: int.parse(_cardNumberController.text.trim()),
-        currency: currentCurrency,
-        expiryDate: _expiryDateController.text.trim(),
-        name: _nameOnCardController.text.trim(),
-        cardType: _cardType,
-      );
-
-      Navigator.of(context).pop();
-    }
-
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -99,7 +85,6 @@ class _AddCardSheetState extends State<AddCardSheet> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                //Currencies list
                 CustomDropdownButton(
                   hintText: const Text(
                     'Choose Currency',
@@ -107,21 +92,23 @@ class _AddCardSheetState extends State<AddCardSheet> {
                       color: Colors.grey,
                     ),
                   ),
-                  value: currentCurrency,
+                  value: _currentCurrency,
                   items: _currenciesList
-                      .map((currencyItem) => DropdownMenuItem(
-                            value: currencyItem,
-                            child: Text(
-                              currencyItem,
-                              style: const TextStyle(
-                                color: Colors.grey,
-                              ),
+                      .map(
+                        (currencyItem) => DropdownMenuItem(
+                          value: currencyItem,
+                          child: Text(
+                            currencyItem,
+                            style: const TextStyle(
+                              color: Colors.grey,
                             ),
-                          ))
+                          ),
+                        ),
+                      )
                       .toList(),
                   onChanged: (newVal) {
                     setState(() {
-                      currentCurrency = newVal!;
+                      _currentCurrency = newVal as String?;
                       _isCurrencySelected = true;
                     });
                   },
@@ -135,12 +122,8 @@ class _AddCardSheetState extends State<AddCardSheet> {
                   ),
                   buttonWidth: 180,
                   buttonHeight: 40,
-                  buttonPadding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                  ),
+                  buttonPadding: const EdgeInsets.symmetric(horizontal: 8),
                 ),
-
-                //Card types list
                 CustomDropdownButton(
                   hintText: const Text(
                     'Card type',
@@ -150,19 +133,21 @@ class _AddCardSheetState extends State<AddCardSheet> {
                   ),
                   value: _cardType,
                   items: _cardTypeList
-                      .map((_cardType) => DropdownMenuItem(
-                            value: _cardType,
-                            child: Text(
-                              _cardType,
-                              style: const TextStyle(
-                                color: Colors.grey,
-                              ),
+                      .map(
+                        (_cardType) => DropdownMenuItem(
+                          value: _cardType,
+                          child: Text(
+                            _cardType,
+                            style: const TextStyle(
+                              color: Colors.grey,
                             ),
-                          ))
+                          ),
+                        ),
+                      )
                       .toList(),
                   onChanged: (newVal) {
                     setState(() {
-                      _cardType = newVal!;
+                      _cardType = newVal as String?;
                       _isCardTypeSelected = true;
                     });
                   },
@@ -176,52 +161,44 @@ class _AddCardSheetState extends State<AddCardSheet> {
                   ),
                   buttonWidth: 120,
                   buttonHeight: 40,
-                  buttonPadding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                  ),
+                  buttonPadding: const EdgeInsets.symmetric(horizontal: 8),
                 ),
               ],
             ),
             const SizedBox(height: 25),
-
-            //CARD NUMBER
             TextFormField(
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(19),
-                CreditCardNumberFormatter(),
+                LengthLimitingTextInputFormatter(16),
+                CardNumberFormatter(),
               ],
               validator: (cardNumber) {
                 if (cardNumber!.isEmpty) {
                   return 'This field is required!';
                 }
+                if (cardNumber.length < 16) {
+                  return 'Insert correct card number.';
+                }
                 return null;
               },
               controller: _cardNumberController,
               keyboardType: TextInputType.number,
-              style: const TextStyle(
-                color: Colors.white70,
-              ),
+              style: const TextStyle(color: Colors.white70),
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.credit_card),
                 prefixIconColor: CustomColors.secondColor,
-                hintStyle: TextStyle(
-                  color: Colors.grey,
-                ),
-                hintText: 'Card number',
+                hintStyle: TextStyle(color: Colors.grey),
+                hintText: 'XXXX XXXX XXXX XXXX',
+                labelText: 'Card Number',
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white38),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: CustomColors.secondColor,
-                  ),
+                  borderSide: BorderSide(color: CustomColors.secondColor),
                 ),
               ),
             ),
             const SizedBox(height: 15),
-
-            //NAME ON THE CARD
             TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (name) {
@@ -232,29 +209,23 @@ class _AddCardSheetState extends State<AddCardSheet> {
               },
               controller: _nameOnCardController,
               keyboardType: TextInputType.name,
-              style: const TextStyle(
-                color: Colors.white70,
-              ),
+              style: const TextStyle(color: Colors.white70),
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.person),
                 prefixIconColor: CustomColors.secondColor,
-                hintStyle: TextStyle(
-                  color: Colors.grey,
-                ),
-                hintText: 'Name on the card',
+                hintStyle: TextStyle(color: Colors.grey),
+                hintText: 'Your name',
+                labelText: 'Name on the card',
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white38),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: CustomColors.secondColor,
-                  ),
+                  borderSide: BorderSide(color: CustomColors.secondColor),
                 ),
               ),
             ),
             const SizedBox(height: 35),
             Flexible(
-              //EXPIRY DATE
               child: TextFormField(
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
@@ -270,31 +241,24 @@ class _AddCardSheetState extends State<AddCardSheet> {
                 },
                 controller: _expiryDateController,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(
-                  color: Colors.white70,
-                ),
+                style: const TextStyle(color: Colors.white70),
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.zero,
                   prefixIcon: Icon(Icons.person),
                   prefixIconColor: CustomColors.secondColor,
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                  ),
-                  hintText: 'Expiry date',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  hintText: 'MM/YY',
+                  labelText: 'Expiry Date',
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white38),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: CustomColors.secondColor,
-                    ),
+                    borderSide: BorderSide(color: CustomColors.secondColor),
                   ),
                 ),
               ),
             ),
             const SizedBox(width: 40),
-
-            //ADD CARD BUTTON
             const SizedBox(height: 20),
             CustomButton(
               text: 'Add Card',

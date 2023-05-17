@@ -1,26 +1,6 @@
 import 'package:flutter/services.dart';
 
 class CreditCardFormatters {
-  static TextEditingValue formatCreditCardNumber(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    final formattedValue = _getFormattedCreditCardNumber(newValue.text);
-    return newValue.copyWith(
-      text: formattedValue,
-      selection: TextSelection.collapsed(offset: formattedValue.length),
-    );
-  }
-
-  static String _getFormattedCreditCardNumber(String input) {
-    final digitsOnly = input.replaceAll(RegExp(r'\D'), '');
-    final List<String> groups = [];
-    for (int i = 0; i < digitsOnly.length; i += 4) {
-      final endIndex = i + 4;
-      final group = digitsOnly.substring(i, endIndex);
-      groups.add(group);
-    }
-    return groups.join(' ');
-  }
-
   static TextEditingValue formatExpiryDate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     final formattedValue = _getFormattedExpiryDate(newValue.text);
@@ -52,10 +32,33 @@ class ExpiryDateInputFormatter extends TextInputFormatter {
   }
 }
 
-class CreditCardNumberFormatter extends TextInputFormatter {
+class CardNumberFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    return CreditCardFormatters.formatCreditCardNumber(oldValue, newValue);
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    var inputText = newValue.text;
+
+    if (newValue.selection.baseOffset == 0) {
+      return newValue;
+    }
+
+    var bufferString = StringBuffer();
+    for (int i = 0; i < inputText.length; i++) {
+      bufferString.write(inputText[i]);
+      var nonZeroIndexValue = i + 1;
+      if (nonZeroIndexValue % 4 == 0 && nonZeroIndexValue != inputText.length) {
+        bufferString.write(' ');
+      }
+    }
+
+    var string = bufferString.toString();
+    return newValue.copyWith(
+      text: string,
+      selection: TextSelection.collapsed(
+        offset: string.length,
+      ),
+    );
   }
 }

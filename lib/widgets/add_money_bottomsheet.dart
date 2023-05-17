@@ -127,6 +127,7 @@ class _AddMoneyBottomsheetState extends State<AddMoneyBottomsheet> {
                   );
                 } else {
                   return ListView.builder(
+                    reverse: true,
                     itemCount: cardsData.userCards.length,
                     itemBuilder: (context, index) => UserCardWidget(
                       isDismissable: false,
