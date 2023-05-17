@@ -10,6 +10,7 @@ class UserCardWidget extends StatefulWidget {
   final int cardNumber;
   final String expiryDate;
   final String cardType;
+  final bool isDismissable;
 
   const UserCardWidget({
     required this.id,
@@ -18,6 +19,7 @@ class UserCardWidget extends StatefulWidget {
     required this.cardNumber,
     required this.expiryDate,
     required this.cardType,
+    required this.isDismissable,
     super.key,
   });
 
@@ -26,136 +28,141 @@ class UserCardWidget extends StatefulWidget {
 }
 
 class _UserCardWidgetState extends State<UserCardWidget> {
+  Widget cardContainer() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.deepPurple,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      height: 168,
+      width: 335,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: Image.asset(
+                'assets/images/bankito_logo.png',
+                scale: 1.5,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${widget.cardNumber}',
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  const Text(
+                    'Expiry',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  const SizedBox(width: 5),
+                  Text(
+                    widget.expiryDate,
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                  const SizedBox(width: 10),
+                ],
+              ),
+            ),
+            const SizedBox(height: 15),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                widget.name,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Text(
+                  'Card currency:',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  widget.currency,
+                  style: const TextStyle(
+                      color: CustomColors.secondColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Dismissible(
-          key: UniqueKey(),
-          onDismissed: (direction) {
-            Provider.of<UserCardsProvider>(context, listen: false)
-                .removeUserCard(widget.id);
-          },
-          confirmDismiss: (DismissDirection direction) async {
-            return await showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  shadowColor: CustomColors.secondColor,
-                  elevation: 5,
-                  title: const Text("Confirm"),
-                  content:
-                      const Text("Are you sure you wish to delete this card?"),
-                  actions: <Widget>[
-                    TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        child: const Text("DELETE")),
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(false),
-                      child: const Text("CANCEL"),
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          background: Container(
-            alignment: Alignment.centerRight,
-            child: Icon(
-              Icons.delete_forever,
-              color: Theme.of(context).colorScheme.error,
-              size: 50,
-            ),
-          ),
-          direction: DismissDirection.endToStart,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.deepPurple,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            height: 168,
-            width: 335,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Image.asset(
-                      'assets/images/bankito_logo.png',
-                      scale: 1.5,
-                    ),
+        widget.isDismissable
+            ? Dismissible(
+                key: UniqueKey(),
+                onDismissed: (direction) {
+                  Provider.of<UserCardsProvider>(context, listen: false)
+                      .removeUserCard(widget.id);
+                },
+                confirmDismiss: (DismissDirection direction) async {
+                  return await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        shadowColor: CustomColors.secondColor,
+                        elevation: 5,
+                        title: const Text("Confirm"),
+                        content: const Text(
+                            "Are you sure you wish to delete this card?"),
+                        actions: <Widget>[
+                          TextButton(
+                              onPressed: () => Navigator.of(context).pop(true),
+                              child: const Text("DELETE")),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text("CANCEL"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                background: Container(
+                  alignment: Alignment.centerRight,
+                  child: Icon(
+                    Icons.delete_forever,
+                    color: Theme.of(context).colorScheme.error,
+                    size: 50,
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      '${widget.cardNumber}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Expiry',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          widget.expiryDate,
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.white),
-                        ),
-                        const SizedBox(width: 10),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      widget.name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Text(
-                        'Card currency:',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        widget.currency,
-                        style: const TextStyle(
-                            color: CustomColors.secondColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
+                ),
+                direction: DismissDirection.endToStart,
+                child: cardContainer(),
+              )
+            : cardContainer(),
         SizedBox(
           width: 335,
           child: Row(
             children: [
               const Text(
                 'Card type: ',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
+                style: TextStyle(color: Colors.grey),
               ),
               Text(
                 widget.cardType,

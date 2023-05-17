@@ -1,3 +1,4 @@
+import 'package:bankito/services/functions/shared_preferences_service.dart';
 import 'package:bankito/widgets/add_money_bottomsheet.dart';
 import 'package:bankito/widgets/custom_button.dart';
 import 'package:bankito/services/providers/tabs_provider.dart';
@@ -21,6 +22,24 @@ class _HomePageState extends State<HomePage> {
   var f = NumberFormat.currency(name: 'en', symbol: '\$');
   String? balanceAsString;
 
+  int startBalance = 0;
+  int finalBalance = 0;
+
+  @override
+  void initState() {
+    SharedPreferencesService.init();
+    super.initState();
+  }
+
+  void saveBalance(int balance) async {
+    await SharedPreferencesService.saveBalance(balance);
+  }
+
+  int getBalance() {
+    return SharedPreferencesService.getBalance();
+  }
+
+  // Navigate to AddMoney bottomsheet
   void selectAddMoney() async {
     final responseValue = await showModalBottomSheet(
       isScrollControlled: true,
@@ -35,10 +54,13 @@ class _HomePageState extends State<HomePage> {
       builder: (context) => const AddMoneyBottomsheet(),
     );
 
-    //FUNCTION TO ADD TO CURRENT VALUE LATER
-    setState(() {
-      balanceAsString = f.format(responseValue);
-    });
+    if (responseValue != null) {
+      setState(() {
+        finalBalance += responseValue as int;
+        balanceAsString = f.format(finalBalance);
+      });
+      saveBalance(finalBalance);
+    }
   }
 
   void selectTransfer() {
@@ -113,7 +135,7 @@ class _HomePageState extends State<HomePage> {
 
                   //Will implement summary from both cards later
                   child: Text(
-                    balanceAsString ?? '00,000',
+                    balanceAsString ?? '\$00,000',
                     style: const TextStyle(color: Colors.white, fontSize: 35),
                   ),
                 ),

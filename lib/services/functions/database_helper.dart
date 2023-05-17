@@ -6,17 +6,15 @@ import 'package:sqflite/sqlite_api.dart';
 class DBhelper {
   static Future<Database> createDb() async {
     final dbPath = await sql.getDatabasesPath();
-    return sql.openDatabase(
-      version: 1,
-      path.join(dbPath, 'user_cards.db'),
-      onCreate: (db, version) {
-        return db.execute(
-            'CREATE TABLE user_cards(id TEXT PRIMARY KEY, name TEXT, currency TEXT, cardNumber INTEGER, expiryDate TEXT, cardType TEXT)');
-      },
-    );
+    return sql.openDatabase(version: 1, path.join(dbPath, 'user_cards.db'),
+        onCreate: (db, version) {
+      db.execute(
+          'CREATE TABLE user_cards(id TEXT PRIMARY KEY, name TEXT, currency TEXT, cardNumber INTEGER, expiryDate TEXT, cardType TEXT)');
+    });
   }
 
-  static Future<void> insert(String table, Map<String, dynamic> data) async {
+  static Future<void> insertData(
+      String table, Map<String, dynamic> data) async {
     final database = await DBhelper.createDb();
     await database.insert(
       table,
@@ -38,14 +36,4 @@ class DBhelper {
       whereArgs: [id],
     );
   }
-
-//Add card balance
-
-  // static Future updateUserData(int userAccountBalance) async {
-  //   final database = await DBhelper.createDb();
-  //   await database.rawUpdate(
-  //     'UPDATE user_cards SET userAccountBalance = ?',
-  //     [userAccountBalance],
-  //   );
-  // }
 }

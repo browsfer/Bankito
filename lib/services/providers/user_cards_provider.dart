@@ -27,7 +27,7 @@ class UserCardsProvider extends ChangeNotifier {
     _userCards.add(
       newCard,
     );
-    DBhelper.insert('user_cards', {
+    DBhelper.insertData('user_cards', {
       'id': newCard.id,
       'name': newCard.name,
       'currency': newCard.currency,

@@ -82,6 +82,7 @@ class CardsPage extends StatelessWidget {
                                   itemCount: userCards.userCards.length,
                                   itemBuilder: (context, index) =>
                                       UserCardWidget(
+                                    isDismissable: true,
                                     id: userCards.userCards[index].id,
                                     name: userCards.userCards[index].name,
                                     currency:
