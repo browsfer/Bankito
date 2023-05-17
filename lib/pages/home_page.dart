@@ -27,9 +27,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    super.initState();
     SharedPreferencesService.init();
     loadBalance();
-    super.initState();
   }
 
   void loadBalance() async {
