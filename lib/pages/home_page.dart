@@ -28,15 +28,20 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     SharedPreferencesService.init();
+    loadBalance();
     super.initState();
+  }
+
+  void loadBalance() async {
+    final balance = await SharedPreferencesService.getBalance();
+    setState(() {
+      finalBalance = balance;
+      balanceAsString = f.format(finalBalance);
+    });
   }
 
   void saveBalance(int balance) async {
     await SharedPreferencesService.saveBalance(balance);
-  }
-
-  int getBalance() {
-    return SharedPreferencesService.getBalance();
   }
 
   // Navigate to AddMoney bottomsheet

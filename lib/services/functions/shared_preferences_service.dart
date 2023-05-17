@@ -10,11 +10,17 @@ class SharedPreferencesService {
 
   // Save the balance value
   static Future<void> saveBalance(int balance) async {
-    await _preferences?.setInt('balance', balance);
+    if (_preferences == null) {
+      await init();
+    }
+    await _preferences!.setInt('balance', balance);
   }
 
   // Retrieve the balance value
-  static int getBalance() {
-    return _preferences?.getInt('balance') ?? 0;
+  static Future<int> getBalance() async {
+    if (_preferences == null) {
+      await init();
+    }
+    return _preferences!.getInt('balance') ?? 0;
   }
 }
