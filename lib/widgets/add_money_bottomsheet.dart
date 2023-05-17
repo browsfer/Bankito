@@ -34,6 +34,8 @@ class _AddMoneyBottomsheetState extends State<AddMoneyBottomsheet> {
 
   @override
   Widget build(BuildContext context) {
+    final cardsData = Provider.of<UserCardsProvider>(context, listen: false);
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -64,15 +66,21 @@ class _AddMoneyBottomsheetState extends State<AddMoneyBottomsheet> {
           TextFormField(
             controller: _moneyAmountController,
             style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(
-              focusedBorder: OutlineInputBorder(
+            decoration: InputDecoration(
+              enabled: cardsData.userCards.isEmpty ? false : true,
+              focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   color: CustomColors.secondColor,
                 ),
               ),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   color: CustomColors.secondColor,
+                ),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.error,
                 ),
               ),
             ),
@@ -101,39 +109,37 @@ class _AddMoneyBottomsheetState extends State<AddMoneyBottomsheet> {
             child: FutureBuilder(
               future: Provider.of<UserCardsProvider>(context, listen: false)
                   .fetchCardsData(),
-              builder: (context, snapshot) => snapshot.connectionState ==
-                      ConnectionState.waiting
-                  ? LoadingAnimationWidget.halfTriangleDot(
-                      color: CustomColors.secondColor,
-                      size: 50,
-                    )
-                  : Consumer<UserCardsProvider>(
-                      builder: (context, userCard, child) => userCard
-                              .userCards.isEmpty
-                          ? const Center(
-                              child: Text(
-                                'You have to add card first!',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 22,
-                                ),
-                              ),
-                            )
-                          : ListView.builder(
-                              itemCount: userCard.userCards.length,
-                              itemBuilder: (context, index) => UserCardWidget(
-                                isDismissable: false,
-                                id: userCard.userCards[index].id,
-                                name: userCard.userCards[index].name,
-                                currency: userCard.userCards[index].currency,
-                                cardNumber:
-                                    userCard.userCards[index].cardNumber,
-                                expiryDate:
-                                    userCard.userCards[index].expiryDate,
-                                cardType: userCard.userCards[index].cardType,
-                              ),
-                            ),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return LoadingAnimationWidget.halfTriangleDot(
+                    color: CustomColors.secondColor,
+                    size: 50,
+                  );
+                } else if (cardsData.userCards.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'You have to add card first!',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 22,
+                      ),
                     ),
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: cardsData.userCards.length,
+                    itemBuilder: (context, index) => UserCardWidget(
+                      isDismissable: false,
+                      id: cardsData.userCards[index].id,
+                      name: cardsData.userCards[index].name,
+                      currency: cardsData.userCards[index].currency,
+                      cardNumber: cardsData.userCards[index].cardNumber,
+                      expiryDate: cardsData.userCards[index].expiryDate,
+                      cardType: cardsData.userCards[index].cardType,
+                    ),
+                  );
+                }
+              },
             ),
           ),
           const SizedBox(height: 10),
