@@ -2,6 +2,7 @@
 
 import 'package:bankito/utils/colors.dart';
 import 'package:bankito/widgets/custom_button.dart';
+import 'package:bankito/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -90,31 +91,10 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
             const SizedBox(height: 30),
 
             //EMAIL INPUT
-            TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              controller: _passwordResetController,
-              keyboardType: TextInputType.emailAddress,
-              validator: validateEmail,
-              style: const TextStyle(
-                color: Colors.white70,
-              ),
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: CustomColors.secondColor,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white38),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: CustomColors.secondColor,
-                    ),
-                  ),
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
-                  ),
-                  hintText: 'Your email address'),
+            CustomTextField(
+              hintText: 'Your email address',
+              validateConditions: validateEmail,
+              prefixIcon: Icons.email,
             ),
             const SizedBox(height: 20),
             CustomButton(

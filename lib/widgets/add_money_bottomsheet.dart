@@ -1,6 +1,7 @@
 import 'package:bankito/services/providers/user_cards_provider.dart';
 import 'package:bankito/utils/colors.dart';
 import 'package:bankito/widgets/custom_button.dart';
+import 'package:bankito/widgets/custom_text_field.dart';
 import 'package:bankito/widgets/user_card_widget.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
@@ -63,27 +64,8 @@ class _AddMoneyBottomsheetState extends State<AddMoneyBottomsheet> {
           const SizedBox(height: 20),
 
           //Adding money
-          TextFormField(
+          CustomTextField(
             controller: _moneyAmountController,
-            style: const TextStyle(color: Colors.white),
-            decoration: InputDecoration(
-              enabled: cardsData.userCards.isEmpty ? false : true,
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: CustomColors.secondColor,
-                ),
-              ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: CustomColors.secondColor,
-                ),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.error,
-                ),
-              ),
-            ),
             inputFormatters: <TextInputFormatter>[
               CurrencyTextInputFormatter(
                 locale: 'en',
@@ -91,8 +73,16 @@ class _AddMoneyBottomsheetState extends State<AddMoneyBottomsheet> {
                 symbol: '\$',
               ),
             ],
+            validateMode: AutovalidateMode.always,
+            validateConditions: (value) {
+              if (value!.isEmpty) {
+                return 'Insert amount here';
+              }
+              return null;
+            },
             keyboardType: TextInputType.number,
           ),
+          //
           const SizedBox(height: 25),
 
           const Text(
@@ -127,7 +117,6 @@ class _AddMoneyBottomsheetState extends State<AddMoneyBottomsheet> {
                   );
                 } else {
                   return ListView.builder(
-                    reverse: true,
                     itemCount: cardsData.userCards.length,
                     itemBuilder: (context, index) => UserCardWidget(
                       isDismissable: false,

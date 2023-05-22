@@ -1,4 +1,5 @@
 import 'package:bankito/pages/password_reset_page.dart';
+import 'package:bankito/widgets/custom_text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -162,96 +163,38 @@ class _AuthFormState extends State<AuthForm> {
             child: Column(
               children: [
                 if (!widget.isSignIn) ...[
-                  TextFormField(
-                    style: const TextStyle(
-                      color: Colors.white70,
-                    ),
+                  CustomTextField(
                     controller: _firstNameController,
-                    validator: (value) {
+                    hintText: 'First name',
+                    validateConditions: (value) {
                       if (value!.isEmpty) {
-                        return 'Please insert your name';
+                        return 'Please write your name';
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      hintText: 'First name',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white38),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: CustomColors.secondColor,
-                        ),
-                      ),
-                    ),
                   ),
                   const SizedBox(height: 15),
-                  TextFormField(
-                    style: const TextStyle(
-                      color: Colors.white70,
-                    ),
+                  CustomTextField(
                     controller: _surnameController,
-                    validator: (value) {
+                    hintText: 'Surname',
+                    validateConditions: (value) {
                       if (value!.length < 3 || value.isEmpty) {
                         return 'Please insert your surname';
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      hintText: 'Surname',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white38),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: CustomColors.secondColor,
-                        ),
-                      ),
-                    ),
                   ),
                   const SizedBox(height: 15),
                 ],
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: validateEmail,
-                  keyboardType: TextInputType.emailAddress,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                  ),
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                    ),
+                CustomTextField(
+                    controller: _emailController,
                     hintText: 'Email address',
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: CustomColors.secondColor,
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white38),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white38),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: CustomColors.secondColor,
-                      ),
-                    ),
-                  ),
-                ),
+                    validateConditions: validateEmail),
                 const SizedBox(height: 15),
-                TextFormField(
-                  obscureText: true,
-                  validator: (value) {
+                CustomTextField(
+                  controller: _passwordController,
+                  hintText: 'Password',
+                  validateConditions: (value) {
                     if (value!.isEmpty) {
                       return 'Enter password';
                     } else if (value.length < 6) {
@@ -259,24 +202,6 @@ class _AuthFormState extends State<AuthForm> {
                     }
                     return null;
                   },
-                  style: const TextStyle(
-                    color: Colors.white70,
-                  ),
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                    ),
-                    hintText: 'Password',
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white38),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: CustomColors.secondColor,
-                      ),
-                    ),
-                  ),
                 ),
                 if (widget.isSignIn) ...[
                   GestureDetector(
@@ -304,31 +229,14 @@ class _AuthFormState extends State<AuthForm> {
                   const SizedBox(height: 15),
                 ],
                 if (!widget.isSignIn) ...[
-                  TextFormField(
-                    obscureText: true,
-                    validator: (value) {
+                  CustomTextField(
+                    hintText: 'Confirm password',
+                    validateConditions: (value) {
                       if (value != _passwordController.text) {
                         return 'Passwords don\'t match';
                       }
                       return null;
                     },
-                    style: const TextStyle(
-                      color: Colors.white70,
-                    ),
-                    decoration: const InputDecoration(
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      hintText: 'Confirm password',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white38),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: CustomColors.secondColor,
-                        ),
-                      ),
-                    ),
                   ),
                   const SizedBox(height: 15),
                 ],

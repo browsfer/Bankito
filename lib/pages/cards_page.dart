@@ -79,7 +79,6 @@ class CardsPage extends StatelessWidget {
                                   ),
                                 )
                               : ListView.builder(
-                                  reverse: true,
                                   itemCount: userCards.userCards.length,
                                   itemBuilder: (context, index) =>
                                       UserCardWidget(

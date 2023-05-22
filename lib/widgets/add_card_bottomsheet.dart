@@ -1,3 +1,4 @@
+import 'package:bankito/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -147,7 +148,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                       .toList(),
                   onChanged: (newVal) {
                     setState(() {
-                      _cardType = newVal as String?;
+                      _cardType = newVal;
                       _isCardTypeSelected = true;
                     });
                   },
@@ -166,13 +167,10 @@ class _AddCardSheetState extends State<AddCardSheet> {
               ],
             ),
             const SizedBox(height: 25),
-            TextFormField(
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(16),
-                CardNumberFormatter(),
-              ],
-              validator: (cardNumber) {
+            CustomTextField(
+              hintText: 'XXXX XXXX XXXX XXXX',
+              labelText: 'Card Number',
+              validateConditions: (cardNumber) {
                 if (cardNumber!.isEmpty) {
                   return 'This field is required!';
                 }
@@ -181,83 +179,47 @@ class _AddCardSheetState extends State<AddCardSheet> {
                 }
                 return null;
               },
-              controller: _cardNumberController,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(16),
+                CardNumberFormatter(),
+              ],
               keyboardType: TextInputType.number,
-              style: const TextStyle(color: Colors.white70),
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.credit_card),
-                prefixIconColor: CustomColors.secondColor,
-                hintStyle: TextStyle(color: Colors.grey),
-                hintText: 'XXXX XXXX XXXX XXXX',
-                labelText: 'Card Number',
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white38),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: CustomColors.secondColor),
-                ),
-              ),
+              prefixIcon: Icons.credit_card,
             ),
             const SizedBox(height: 15),
-            TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (name) {
+            CustomTextField(
+              hintText: 'Your name',
+              validateConditions: (name) {
                 if (name!.isEmpty) {
                   return 'This field is required!';
                 }
                 return null;
               },
               controller: _nameOnCardController,
-              keyboardType: TextInputType.name,
-              style: const TextStyle(color: Colors.white70),
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.person),
-                prefixIconColor: CustomColors.secondColor,
-                hintStyle: TextStyle(color: Colors.grey),
-                hintText: 'Your name',
-                labelText: 'Name on the card',
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white38),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: CustomColors.secondColor),
-                ),
-              ),
+              labelText: 'Name on the card',
+              prefixIcon: Icons.person,
             ),
             const SizedBox(height: 35),
             Flexible(
-              child: TextFormField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(4),
-                  ExpiryDateInputFormatter(),
-                ],
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please insert your card expiry date';
-                  }
-                  return null;
-                },
-                controller: _expiryDateController,
-                keyboardType: TextInputType.number,
-                style: const TextStyle(color: Colors.white70),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.zero,
-                  prefixIcon: Icon(Icons.person),
-                  prefixIconColor: CustomColors.secondColor,
-                  hintStyle: TextStyle(color: Colors.grey),
-                  hintText: 'MM/YY',
-                  labelText: 'Expiry Date',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white38),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: CustomColors.secondColor),
-                  ),
-                ),
-              ),
-            ),
+                child: CustomTextField(
+              controller: _expiryDateController,
+              keyboardType: TextInputType.number,
+              hintText: 'MM/YY',
+              labelText: 'Expiry date',
+              validateConditions: (value) {
+                if (value!.isEmpty) {
+                  return 'Please insert your card expiry date';
+                }
+                return null;
+              },
+              prefixIcon: Icons.person,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(4),
+                ExpiryDateInputFormatter(),
+              ],
+            )),
             const SizedBox(width: 40),
             const SizedBox(height: 20),
             CustomButton(

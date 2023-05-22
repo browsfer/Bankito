@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
               //Temporary untill app finished
               return const TabsScreen();
             } else {
-              return const OnboardingScreen();
+              return const TabsScreen();
             }
           },
         ),

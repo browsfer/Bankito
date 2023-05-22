@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(width: 10),
                     // User name and account info
+
                     Column(
                       children: [
                         Text(
