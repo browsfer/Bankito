@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:bankito/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +21,16 @@ class TabsScreen extends StatelessWidget {
             statusBarIconBrightness: Brightness.light,
           ),
           toolbarHeight: 0),
-      body: navBar.navBarItems[navBar.selectedIndex].screen,
+      body: PageTransitionSwitcher(
+        transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
+            FadeThroughTransition(
+          animation: primaryAnimation,
+          secondaryAnimation: secondaryAnimation,
+          child: child,
+        ),
+        child: navBar.navBarItems[navBar.selectedIndex].screen,
+      ),
+      // navBar.navBarItems[navBar.selectedIndex].screen,
       bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,

@@ -52,10 +52,9 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              //Temporary untill app finished
               return const TabsScreen();
             } else {
-              return const TabsScreen();
+              return const OnboardingScreen();
             }
           },
         ),

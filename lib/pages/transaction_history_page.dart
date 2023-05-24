@@ -56,11 +56,8 @@ class TransactionHistoryPage extends StatelessWidget {
                       textSize: 14,
                       padding: const EdgeInsets.all(11),
                       borderRadius: BorderRadius.circular(88),
-                      textColor: Colors.grey,
                       height: 50,
                       width: 90,
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1),
                     ),
                     CustomButton(
                       onPressed: () {},
@@ -68,11 +65,8 @@ class TransactionHistoryPage extends StatelessWidget {
                       textSize: 14,
                       padding: const EdgeInsets.all(11),
                       borderRadius: BorderRadius.circular(88),
-                      textColor: Colors.grey,
                       height: 50,
                       width: 90,
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1),
                     ),
                     CustomButton(
                       onPressed: () {},
@@ -80,11 +74,8 @@ class TransactionHistoryPage extends StatelessWidget {
                       textSize: 14,
                       padding: const EdgeInsets.all(11),
                       borderRadius: BorderRadius.circular(88),
-                      textColor: Colors.grey,
                       height: 50,
                       width: 90,
-                      borderSide:
-                          const BorderSide(color: Colors.grey, width: 1),
                     ),
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'package:bankito/utils/colors.dart';
 import 'package:bankito/widgets/custom_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserSettingsPage extends StatelessWidget {
@@ -33,7 +34,21 @@ class UserSettingsPage extends StatelessWidget {
               'domtyk@okok.pl',
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            const SizedBox(height: 50),
+            Align(
+              alignment: Alignment.centerRight,
+              child: CustomButton(
+                width: 60,
+                height: 40,
+                onPressed: () => FirebaseAuth.instance.signOut(),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.logout),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
 
             //Security tab
             const Align(
@@ -48,8 +63,6 @@ class UserSettingsPage extends StatelessWidget {
             const SizedBox(height: 20),
             //Block the card
             CustomButton(
-              color: CustomColors.secondColor,
-              padding: const EdgeInsets.all(20),
               onPressed: () {},
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -67,8 +80,6 @@ class UserSettingsPage extends StatelessWidget {
 
             //Change account password
             CustomButton(
-              color: CustomColors.secondColor,
-              padding: const EdgeInsets.all(20),
               onPressed: () {},
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,

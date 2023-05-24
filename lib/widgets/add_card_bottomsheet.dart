@@ -22,7 +22,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
   final _nameOnCardController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String? _currentCurrency;
-  String? _cardType;
+  String? cardType;
   bool _isCurrencySelected = false;
   bool _isCardTypeSelected = false;
 
@@ -54,7 +54,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
           currency: _currentCurrency,
           expiryDate: _expiryDateController.text.trim(),
           name: _nameOnCardController.text.trim(),
-          cardType: _cardType,
+          cardType: cardType,
         );
 
         Navigator.of(context).pop();
@@ -109,7 +109,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                       .toList(),
                   onChanged: (newVal) {
                     setState(() {
-                      _currentCurrency = newVal as String?;
+                      _currentCurrency = newVal;
                       _isCurrencySelected = true;
                     });
                   },
@@ -132,13 +132,13 @@ class _AddCardSheetState extends State<AddCardSheet> {
                       color: Colors.grey,
                     ),
                   ),
-                  value: _cardType,
+                  value: cardType,
                   items: _cardTypeList
                       .map(
-                        (_cardType) => DropdownMenuItem(
-                          value: _cardType,
+                        (cardType) => DropdownMenuItem(
+                          value: cardType,
                           child: Text(
-                            _cardType,
+                            cardType,
                             style: const TextStyle(
                               color: Colors.grey,
                             ),
@@ -148,7 +148,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                       .toList(),
                   onChanged: (newVal) {
                     setState(() {
-                      _cardType = newVal;
+                      cardType = newVal;
                       _isCardTypeSelected = true;
                     });
                   },
@@ -168,13 +168,14 @@ class _AddCardSheetState extends State<AddCardSheet> {
             ),
             const SizedBox(height: 25),
             CustomTextField(
+              controller: _cardNumberController,
               hintText: 'XXXX XXXX XXXX XXXX',
               labelText: 'Card Number',
               validateConditions: (cardNumber) {
                 if (cardNumber!.isEmpty) {
                   return 'This field is required!';
                 }
-                if (cardNumber.length < 16) {
+                if (cardNumber.length < 19) {
                   return 'Insert correct card number.';
                 }
                 return null;

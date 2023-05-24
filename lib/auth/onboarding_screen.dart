@@ -1,6 +1,5 @@
 import 'package:bankito/auth/auth_form.dart';
 import 'package:bankito/widgets/my_intro_slider.dart';
-import 'package:bankito/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_button.dart';
@@ -61,17 +60,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     width: 150,
                     height: 80,
                     text: 'Sign in',
-                    textColor: Colors.black,
                     onPressed: () => userAuth(true),
-                    color: CustomColors.secondColor,
                   ),
                   CustomButton(
                     width: 150,
                     height: 80,
                     text: 'Sign up',
-                    textColor: CustomColors.mainColor,
                     onPressed: () => userAuth(false),
-                    color: CustomColors.secondColor,
                   ),
                 ],
               ),

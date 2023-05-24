@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final String? labelText;
   final List<TextInputFormatter>? inputFormatters;
   final AutovalidateMode? validateMode;
+  final bool? obscureText;
 
   const CustomTextField(
       {super.key,
@@ -24,11 +25,13 @@ class CustomTextField extends StatelessWidget {
       this.iconColor,
       this.labelText,
       this.inputFormatters,
-      this.validateMode});
+      this.validateMode,
+      this.obscureText});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscureText ?? false,
       inputFormatters: inputFormatters,
       keyboardType: keyboardType,
       autovalidateMode: validateMode ?? AutovalidateMode.onUserInteraction,

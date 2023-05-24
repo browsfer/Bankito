@@ -168,7 +168,7 @@ class _AuthFormState extends State<AuthForm> {
                     hintText: 'First name',
                     validateConditions: (value) {
                       if (value!.isEmpty) {
-                        return 'Please write your name';
+                        return 'Please write your first name';
                       }
                       return null;
                     },
@@ -192,6 +192,7 @@ class _AuthFormState extends State<AuthForm> {
                     validateConditions: validateEmail),
                 const SizedBox(height: 15),
                 CustomTextField(
+                  obscureText: true,
                   controller: _passwordController,
                   hintText: 'Password',
                   validateConditions: (value) {
@@ -230,6 +231,7 @@ class _AuthFormState extends State<AuthForm> {
                 ],
                 if (!widget.isSignIn) ...[
                   CustomTextField(
+                    obscureText: true,
                     hintText: 'Confirm password',
                     validateConditions: (value) {
                       if (value != _passwordController.text) {

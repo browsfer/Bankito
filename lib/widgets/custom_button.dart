@@ -1,3 +1,4 @@
+import 'package:bankito/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -55,7 +56,7 @@ class CustomButton extends StatelessWidget {
             splashColor: splashColor,
             elevation: 0,
             onPressed: onPressed,
-            color: color,
+            color: color ?? CustomColors.secondColor,
             shape: OutlineInputBorder(
                 borderRadius: borderRadius ?? BorderRadius.circular(radius!),
                 borderSide: borderSide ?? BorderSide.none),
@@ -64,7 +65,7 @@ class CustomButton extends StatelessWidget {
                   text!,
                   textAlign: textAlign ?? TextAlign.center,
                   style: TextStyle(
-                      color: textColor ?? Colors.white,
+                      color: textColor ?? CustomColors.mainColor,
                       fontSize: textSize ?? 17,
                       fontWeight: FontWeight.w600),
                 ),
