@@ -53,7 +53,7 @@ class TabsProvider with ChangeNotifier {
         color: CustomColors.secondColor,
       ),
       label: 'Settings',
-      screen: const UserSettingsPage(),
+      screen: UserSettingsPage(),
     ),
   ];
 

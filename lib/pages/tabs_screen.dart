@@ -22,6 +22,7 @@ class TabsScreen extends StatelessWidget {
           ),
           toolbarHeight: 0),
       body: PageTransitionSwitcher(
+        duration: const Duration(milliseconds: 375),
         transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
             FadeThroughTransition(
           animation: primaryAnimation,
@@ -30,7 +31,6 @@ class TabsScreen extends StatelessWidget {
         ),
         child: navBar.navBarItems[navBar.selectedIndex].screen,
       ),
-      // navBar.navBarItems[navBar.selectedIndex].screen,
       bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
